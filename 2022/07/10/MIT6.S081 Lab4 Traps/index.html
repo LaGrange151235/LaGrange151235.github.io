@@ -1,0 +1,579 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 6.2.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"lagrange151235.github.io","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":null},"back2top":{"enable":true,"sidebar":true,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="RISC-V assembly Hardness: easy Details:  Question 1Which registers contain arguments to functions? For example, which register holds 13 in main’s call to printf?Answer 1 a0~a7 a2   Question 2Where is">
+<meta property="og:type" content="article">
+<meta property="og:title" content="MIT6.S081 Lab4 Traps">
+<meta property="og:url" content="http://lagrange151235.github.io/2022/07/10/MIT6.S081%20Lab4%20Traps/index.html">
+<meta property="og:site_name" content="LaGrange&#39;s Blog">
+<meta property="og:description" content="RISC-V assembly Hardness: easy Details:  Question 1Which registers contain arguments to functions? For example, which register holds 13 in main’s call to printf?Answer 1 a0~a7 a2   Question 2Where is">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/LaGrange151235/myImage@main/202207041135353.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/LaGrange151235/myImage@main/202207041206929.png">
+<meta property="article:published_time" content="2022-07-10T02:22:33.050Z">
+<meta property="article:modified_time" content="2022-07-10T02:54:06.070Z">
+<meta property="article:author" content="Jiayi Zhang">
+<meta property="article:tag" content="MIT6.S081Lab">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://cdn.jsdelivr.net/gh/LaGrange151235/myImage@main/202207041135353.png">
+
+<link rel="canonical" href="http://lagrange151235.github.io/2022/07/10/MIT6.S081%20Lab4%20Traps/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>MIT6.S081 Lab4 Traps | LaGrange's Blog</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">LaGrange's Blog</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="reading-progress-bar"></div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://lagrange151235.github.io/2022/07/10/MIT6.S081%20Lab4%20Traps/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/uploads/avatar.jpg">
+      <meta itemprop="name" content="Jiayi Zhang">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="LaGrange's Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          MIT6.S081 Lab4 Traps
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2022-07-10 10:22:33 / 修改时间：10:54:06" itemprop="dateCreated datePublished" datetime="2022-07-10T10:22:33+08:00">2022-07-10</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E8%87%AA%E5%AD%A6/" itemprop="url" rel="index"><span itemprop="name">自学</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h2 id="RISC-V-assembly"><a href="#RISC-V-assembly" class="headerlink" title="RISC-V assembly"></a>RISC-V assembly</h2><ul>
+<li>Hardness: <font color=green>easy</font></li>
+<li>Details: <ul>
+<li><strong>Question 1</strong><br>Which registers contain arguments to functions? For example, which register holds 13 in main’s call to printf?<br><strong>Answer 1</strong><ul>
+<li>a0~a7</li>
+<li>a2</li>
+</ul>
+</li>
+<li><strong>Question 2</strong><br>Where is the call to function f in the assembly code for main? Where is the call to g? (Hint: the compiler may inline functions.)<br><strong>Answer 2</strong><ul>
+<li>Functions f(x) and g(x) are not called, they are inlined.</li>
+<li>g(x) is inlined within f(x).</li>
+</ul>
+</li>
+<li><strong>Question 3</strong><br>At what address is the function printf located?<br><strong>Answer 3</strong><br>Address of &lt;printf&gt; is 0x0000000000000630.</li>
+<li><strong>Question 4</strong><br>What value is in the register ra just after the jalr to printf in main?<br><strong>Answer 4</strong><br>Value in register ra is 0x038.</li>
+<li><strong>Question 5</strong><br>Run the following code.<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">unsigned</span> <span class="type">int</span> i = <span class="number">0x00646c72</span>;</span><br><span class="line"><span class="built_in">printf</span>(<span class="string">&quot;H%x Wo%s&quot;</span>, <span class="number">57616</span>, &amp;i);</span><br></pre></td></tr></table></figure>
+What is the output? Here’s an ASCII table that maps bytes to characters.<br>$ $<br>The output depends on that fact that the RISC-V is little-endian. If the RISC-V were instead big-endian what would you set i to in order to yield the same output? Would you need to change 57616 to a different value?<br><strong>Answer 5</strong><ul>
+<li>The output is “He110 World”.</li>
+<li>No.</li>
+<li>The arrangement of data won’t influence the value of it.</li>
+</ul>
+</li>
+<li><strong>Question 6</strong><br>In the following code, what is going to be printed after ‘y&#x3D;’? (note: the answer is not a specific value.) Why does this happen?<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">printf</span>(<span class="string">&quot;x=%d y=%d&quot;</span>, <span class="number">3</span>);</span><br></pre></td></tr></table></figure>
+<strong>Answer 6</strong><br>An uncertain value. Because the code only gives the first argument for register a1, the second argument in a2 doesn’t get the value from code. So the value in a2 will be the uncertain value in a2 before this code being executed.</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h2 id="Backtrace"><a href="#Backtrace" class="headerlink" title="Backtrace"></a>Backtrace</h2><ul>
+<li>Hardness: <font color=deepskyblue>moderate</font></li>
+<li>Details: 实现输出异常前栈中函数调用的功能</li>
+<li>Implementation: <ol>
+<li>在kernel&#x2F;defs.h中声明backtrace()函数  <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// in file kernel/defs.h</span></span><br><span class="line"></span><br><span class="line">...</span><br><span class="line"></span><br><span class="line"><span class="comment">// printf.c</span></span><br><span class="line"><span class="type">void</span>            <span class="title function_">printf</span><span class="params">(<span class="type">char</span>*, ...)</span>;</span><br><span class="line"><span class="type">void</span>            <span class="title function_">panic</span><span class="params">(<span class="type">char</span>*)</span> __<span class="title function_">attribute__</span><span class="params">((<span class="keyword">noreturn</span>))</span>;</span><br><span class="line"><span class="type">void</span>            <span class="title function_">printfinit</span><span class="params">(<span class="type">void</span>)</span>;</span><br><span class="line"><span class="type">void</span>			<span class="title function_">backtrace</span><span class="params">(<span class="type">void</span>)</span>;</span><br><span class="line"></span><br><span class="line">...</span><br><span class="line"></span><br></pre></td></tr></table></figure></li>
+<li>在kernel&#x2F;risc.h中添加辅助函数r_fp()，通过添加汇编代码的方式访问寄存器s0  <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// in file kernel/risc.h</span></span><br><span class="line"></span><br><span class="line">...</span><br><span class="line"></span><br><span class="line"><span class="comment">// <span class="doctag">TODO:</span> the inline function assisting &lt;backtrace&gt;</span></span><br><span class="line"><span class="comment">// get the frame pointer of the current executing function in the register &lt;s0&gt;</span></span><br><span class="line"><span class="type">static</span> <span class="keyword">inline</span> uint64</span><br><span class="line"><span class="title function_">r_fp</span><span class="params">()</span></span><br><span class="line">&#123;</span><br><span class="line">    uint64 x;</span><br><span class="line">    <span class="keyword">asm</span> <span class="title function_">volatile</span><span class="params">(<span class="string">&quot;mv %0, s0&quot;</span> : <span class="string">&quot;=r&quot;</span> (x) )</span>;</span><br><span class="line">    <span class="keyword">return</span> x;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+<li>在kernel&#x2F;printf.c中实现backtrace()函数，这里有以下技巧<ol>
+<li>返回地址在stackframe顶地址-8的位置</li>
+<li>frame指针地址在stackframe顶地址-16的位置</li>
+<li>通过PGROUNDDOWN(fp)和PGROUNDUP(fp)获取栈页顶和底  <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// in file kernel/printf.c</span></span><br><span class="line"></span><br><span class="line">...</span><br><span class="line"></span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment"> * <span class="doctag">TODO:</span> a list of the function calls on the stack</span></span><br><span class="line"><span class="comment"> *			 above the point at which the error occurred.</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="type">void</span> <span class="title function_">backtrace</span><span class="params">(<span class="type">void</span>)</span></span><br><span class="line">&#123;</span><br><span class="line"> uint64 framePointer;</span><br><span class="line"> framePointer = r_fp();</span><br><span class="line"> <span class="keyword">while</span>(framePointer != PGROUNDUP(framePointer)) &#123;</span><br><span class="line">  uint64 returnAddr = *(uint64*)(framePointer - <span class="number">8</span>);</span><br><span class="line">  framePointer = *(uint64*)(framePointer - <span class="number">16</span>);</span><br><span class="line">  <span class="built_in">printf</span>(<span class="string">&quot;%p\n&quot;</span>, returnAddr);</span><br><span class="line"> &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+</ol>
+</li>
+</ol>
+</li>
+</ul>
+<p><img src="https://cdn.jsdelivr.net/gh/LaGrange151235/myImage@main/202207041135353.png"></p>
+<center>运行结果</center>
+
+<hr>
+<h2 id="Alarm"><a href="#Alarm" class="headerlink" title="Alarm"></a>Alarm</h2><ul>
+<li>Hardness: <font color=red>hard</font></li>
+<li>Details: 实现系统调用sigalarm(interval, handler)，调用后会通过CPU计时并在计时结束时调用handler对应的函数，同时可以通过sigalarm(0, 0)来停止闹钟计时</li>
+<li>Implementation: <ol>
+<li>在user&#x2F;user.h和kernel&#x2F;defs.h中声明需要的系统调用sigalarm(int ticks, void (*handler)())和sigreturn(void)  <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// in file user/user.h</span></span><br><span class="line"></span><br><span class="line">...</span><br><span class="line"></span><br><span class="line"><span class="comment">// user/alarmtest.c</span></span><br><span class="line"><span class="type">int</span> <span class="title function_">sigalarm</span><span class="params">(<span class="type">int</span> ticks, <span class="type">void</span> (*handler)())</span>;</span><br><span class="line"><span class="type">int</span> <span class="title function_">sigreturn</span><span class="params">(<span class="type">void</span>)</span>;</span><br></pre></td></tr></table></figure>
+  <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// in file kernel/defs.h</span></span><br><span class="line"></span><br><span class="line">...</span><br><span class="line"></span><br><span class="line"><span class="comment">// trap.c</span></span><br><span class="line"><span class="keyword">extern</span> uint     ticks;</span><br><span class="line"><span class="type">void</span>            <span class="title function_">trapinit</span><span class="params">(<span class="type">void</span>)</span>;</span><br><span class="line"><span class="type">void</span>            <span class="title function_">trapinithart</span><span class="params">(<span class="type">void</span>)</span>;</span><br><span class="line"><span class="keyword">extern</span> <span class="class"><span class="keyword">struct</span> <span class="title">spinlock</span> <span class="title">tickslock</span>;</span></span><br><span class="line"><span class="type">void</span>            <span class="title function_">usertrapret</span><span class="params">(<span class="type">void</span>)</span>;</span><br><span class="line"><span class="type">int</span>             <span class="title function_">sigalarm</span><span class="params">(<span class="type">int</span> n, <span class="type">void</span>(*fn)(<span class="type">void</span>))</span>;</span><br><span class="line"><span class="type">int</span>             <span class="title function_">sigreturn</span><span class="params">()</span>;</span><br></pre></td></tr></table></figure></li>
+<li>在kernel&#x2F;syscall.h中添加系统调用编号  <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// in file kernel/syscall.h</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> SYS_sigalarm    22</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> SYS_sigreturn   23</span></span><br></pre></td></tr></table></figure></li>
+<li>在user&#x2F;usys.pl中添加系统调用入口  <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// in file user/usys.pl</span></span><br><span class="line">entry(<span class="string">&quot;sigalarm&quot;</span>);</span><br><span class="line">entry(<span class="string">&quot;sigreturn&quot;</span>); </span><br></pre></td></tr></table></figure></li>
+<li>在Makefile中为用户态程序添加alarmtest  <figure class="highlight makefile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">UPROGS=\</span><br><span class="line"> ...</span><br><span class="line"> $U/_wc\</span><br><span class="line"> $U/_zombie\</span><br><span class="line"> $U/_alarmtest\</span><br></pre></td></tr></table></figure></li>
+<li>在kernel&#x2F;trap.c中实现功能函数sigalarm(int ticks, void(*handler)())和sigreturn()，并在usertrap(void)函数中处理存在alarm时发生的timer interrupt  <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// in file kernel/trap.c</span></span><br><span class="line"><span class="type">void</span></span><br><span class="line"><span class="title function_">usertrap</span><span class="params">(<span class="type">void</span>)</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="type">int</span> which_dev = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span>((r_sstatus() &amp; SSTATUS_SPP) != <span class="number">0</span>)</span><br><span class="line">        panic(<span class="string">&quot;usertrap: not from user mode&quot;</span>);</span><br><span class="line"></span><br><span class="line">    <span class="comment">// send interrupts and exceptions to kerneltrap(),</span></span><br><span class="line">    <span class="comment">// since we&#x27;re now in the kernel.</span></span><br><span class="line">    w_stvec((uint64)kernelvec);</span><br><span class="line"></span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">proc</span> *<span class="title">p</span> =</span> myproc();</span><br><span class="line">  </span><br><span class="line">    ...</span><br><span class="line"></span><br><span class="line">    <span class="comment">// give up the CPU if this is a timer interrupt.</span></span><br><span class="line">    <span class="keyword">if</span>(which_dev == <span class="number">2</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="comment">// <span class="doctag">TODO:</span> deal with timer interrupt with sigalarm enabled</span></span><br><span class="line">        <span class="keyword">if</span>(p-&gt;alarm_ticks) &#123; <span class="comment">// if p-&gt;alarm_ticks is 0, sigalarm disabled</span></span><br><span class="line">            --p-&gt;alarm_ticks_remain;</span><br><span class="line">            <span class="keyword">if</span>(p-&gt;alarm_ticks_remain &lt;= <span class="number">0</span>) &#123; <span class="comment">// time out!</span></span><br><span class="line">                <span class="keyword">if</span>(!p-&gt;alram_goingoff) &#123; <span class="comment">// ensure there&#x27;s no other alarm running</span></span><br><span class="line">                    <span class="comment">// goto handler function</span></span><br><span class="line">                    *p-&gt;alarm_trapframe = *p-&gt;trapframe; <span class="comment">// backup trapframe</span></span><br><span class="line">                    p-&gt;trapframe-&gt;epc = (uint64)p-&gt;alarm_handler_addr; <span class="comment">// change the user program counter to the handler</span></span><br><span class="line">                    p-&gt;alram_goingoff = <span class="number">1</span>; <span class="comment">// announce a running alarm</span></span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        yield();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    usertrapret();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+<li>在kernel&#x2F;sysproc.c中完成内核态系统调用函数sys_sigalarm(void)和sys_sigreturn(void)  <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// in file kernel/sysproc.c</span></span><br><span class="line"><span class="comment">// <span class="doctag">TODO:</span> new syscalls assisting sigalarm</span></span><br><span class="line">uint64</span><br><span class="line"><span class="title function_">sys_sigalarm</span><span class="params">(<span class="type">void</span>)</span></span><br><span class="line">&#123;</span><br><span class="line"> <span class="type">int</span> ticks;</span><br><span class="line"> uint64 handlerAddr;</span><br><span class="line"> <span class="keyword">if</span> (argint(<span class="number">0</span>, &amp;ticks) &lt; <span class="number">0</span>)</span><br><span class="line">		<span class="keyword">return</span> <span class="number">-1</span>;</span><br><span class="line">	<span class="keyword">if</span> (argaddr(<span class="number">1</span>, &amp;handlerAddr) &lt; <span class="number">0</span>)</span><br><span class="line">  <span class="keyword">return</span> <span class="number">-1</span>;</span><br><span class="line"> <span class="keyword">return</span> sigalarm(ticks, ((<span class="type">void</span>(*)())(handlerAddr)));</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">uint64</span><br><span class="line"><span class="title function_">sys_sigreturn</span><span class="params">(<span class="type">void</span>)</span></span><br><span class="line">&#123;</span><br><span class="line">	<span class="keyword">return</span> sigreturn();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<img src="https://cdn.jsdelivr.net/gh/LaGrange151235/myImage@main/202207041206929.png"><center>运行结果</center></li>
+</ol>
+</li>
+</ul>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/MIT6-S081Lab/" rel="tag"># MIT6.S081Lab</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2022/07/10/MIT6.S081%20Lab3%20Page%20Tables/" rel="prev" title="MIT6.S081 Lab3 Page Tables">
+      <i class="fa fa-chevron-left"></i> MIT6.S081 Lab3 Page Tables
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2022/07/10/MIT6.S081%20Lab5%20Copy-on-Write%20Fork%20for%20xv6/" rel="next" title="MIT6.S081 Lab5 Copy-on-Write Fork for xv6">
+      MIT6.S081 Lab5 Copy-on-Write Fork for xv6 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#RISC-V-assembly"><span class="nav-number">1.</span> <span class="nav-text">RISC-V assembly</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Backtrace"><span class="nav-number">2.</span> <span class="nav-text">Backtrace</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Alarm"><span class="nav-number">3.</span> <span class="nav-text">Alarm</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Jiayi Zhang"
+      src="/uploads/avatar.jpg">
+  <p class="site-author-name" itemprop="name">Jiayi Zhang</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">9</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">2</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">2</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/LaGrange151235" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;LaGrange151235" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:zhangjiayi1512@outlook.com" title="E-Mail → mailto:zhangjiayi1512@outlook.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+
+
+      </div>
+        <div class="back-to-top motion-element">
+          <i class="fa fa-arrow-up"></i>
+          <span>0%</span>
+        </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Jiayi Zhang</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+      
+
+<script>
+  if (typeof MathJax === 'undefined') {
+    window.MathJax = {
+      loader: {
+          load: ['[tex]/mhchem'],
+        source: {
+          '[tex]/amsCd': '[tex]/amscd',
+          '[tex]/AMScd': '[tex]/amscd'
+        }
+      },
+      tex: {
+        inlineMath: {'[+]': [['$', '$']]},
+          packages: {'[+]': ['mhchem']},
+        tags: 'ams'
+      },
+      options: {
+        renderActions: {
+          findScript: [10, doc => {
+            document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
+              const display = !!node.type.match(/; *mode=display/);
+              const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+              const text = document.createTextNode('');
+              node.parentNode.replaceChild(text, node);
+              math.start = {node: text, delim: '', n: 0};
+              math.end = {node: text, delim: '', n: 0};
+              doc.math.push(math);
+            });
+          }, '', false],
+          insertedScript: [200, () => {
+            document.querySelectorAll('mjx-container').forEach(node => {
+              let target = node.parentNode;
+              if (target.nodeName.toLowerCase() === 'li') {
+                target.parentNode.classList.add('has-jax');
+              }
+            });
+          }, '', false]
+        }
+      }
+    };
+    (function () {
+      var script = document.createElement('script');
+      script.src = '//cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js';
+      script.defer = true;
+      document.head.appendChild(script);
+    })();
+  } else {
+    MathJax.startup.document.state(0);
+    MathJax.texReset();
+    MathJax.typeset();
+  }
+</script>
+
+    
+
+  
+
+</body>
+</html>

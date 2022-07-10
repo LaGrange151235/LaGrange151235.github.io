@@ -1,0 +1,669 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 6.2.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"lagrange151235.github.io","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":null},"back2top":{"enable":true,"sidebar":true,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="Three Eras of Computing  Tabulating era 机械时代 Programming era 程序时代 Cognitive era 认知时代  Cognitive Computing cognition: act of thinking cognitive computing: simulating the act of thinking imitating human">
+<meta property="og:type" content="article">
+<meta property="og:title" content="SWS3004 L01 Introduction">
+<meta property="og:url" content="http://lagrange151235.github.io/2022/07/10/SWS3004%20L01%20Introduction/index.html">
+<meta property="og:site_name" content="LaGrange&#39;s Blog">
+<meta property="og:description" content="Three Eras of Computing  Tabulating era 机械时代 Programming era 程序时代 Cognitive era 认知时代  Cognitive Computing cognition: act of thinking cognitive computing: simulating the act of thinking imitating human">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/LaGrange151235/myImage@main/202207091109543.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/LaGrange151235/myImage@main/202207091123715.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/LaGrange151235/myImage@main/202207091523842.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/LaGrange151235/myImage@main/202207091548387.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/LaGrange151235/myImage@main/202207091600470.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/LaGrange151235/myImage@main/202207091710029.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/LaGrange151235/myImage@main/202207091710914.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/LaGrange151235/myImage@main/202207091758567.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/LaGrange151235/myImage@main/202207092059411.png">
+<meta property="article:published_time" content="2022-07-10T02:22:33.067Z">
+<meta property="article:modified_time" content="2022-07-10T02:54:13.843Z">
+<meta property="article:author" content="Jiayi Zhang">
+<meta property="article:tag" content="NUS Summer Workshop 2022">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://cdn.jsdelivr.net/gh/LaGrange151235/myImage@main/202207091109543.png">
+
+<link rel="canonical" href="http://lagrange151235.github.io/2022/07/10/SWS3004%20L01%20Introduction/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>SWS3004 L01 Introduction | LaGrange's Blog</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">LaGrange's Blog</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="reading-progress-bar"></div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://lagrange151235.github.io/2022/07/10/SWS3004%20L01%20Introduction/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/uploads/avatar.jpg">
+      <meta itemprop="name" content="Jiayi Zhang">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="LaGrange's Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          SWS3004 L01 Introduction
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2022-07-10 10:22:33 / 修改时间：10:54:13" itemprop="dateCreated datePublished" datetime="2022-07-10T10:22:33+08:00">2022-07-10</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/NUS-Summer-Workshop-2022/" itemprop="url" rel="index"><span itemprop="name">NUS Summer Workshop 2022</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h2 id="Three-Eras-of-Computing"><a href="#Three-Eras-of-Computing" class="headerlink" title="Three Eras of Computing"></a>Three Eras of Computing</h2><p><img src="https://cdn.jsdelivr.net/gh/LaGrange151235/myImage@main/202207091109543.png"></p>
+<ul>
+<li>Tabulating era 机械时代</li>
+<li>Programming era 程序时代</li>
+<li>Cognitive era 认知时代</li>
+</ul>
+<h3 id="Cognitive-Computing"><a href="#Cognitive-Computing" class="headerlink" title="Cognitive Computing"></a>Cognitive Computing</h3><ul>
+<li>cognition: act of thinking</li>
+<li>cognitive computing: simulating the act of thinking imitating human</li>
+<li>explosion of <strong>(unstructured) data</strong>（非结构化数据） leads to the development of cognitive systems</li>
+<li>discovery, engagement and decision（发现，研究， 决策）</li>
+</ul>
+<h3 id="Cognitive-Computing-Model"><a href="#Cognitive-Computing-Model" class="headerlink" title="Cognitive Computing Model"></a>Cognitive Computing Model</h3><p><img src="https://cdn.jsdelivr.net/gh/LaGrange151235/myImage@main/202207091123715.png"><br>Cloud computing provides a platform for executing and delivering cognitive services to users.</p>
+<h2 id="Cloud-Computing"><a href="#Cloud-Computing" class="headerlink" title="Cloud Computing"></a>Cloud Computing</h2><h3 id="Key-Terms"><a href="#Key-Terms" class="headerlink" title="Key Terms"></a>Key Terms</h3><ul>
+<li>Elastic resource（弹性资源）</li>
+<li>Capacity planning（性能规划）</li>
+<li>Scaling（扩展）</li>
+<li>Cloud-based IT resources（基于云的IT资源）</li>
+<li>Cloud service（基于云的IT资源）</li>
+<li>Trust boundary（可信边界）</li>
+</ul>
+<h3 id="Definitions"><a href="#Definitions" class="headerlink" title="Definitions"></a>Definitions</h3><ul>
+<li>Gartner Report<ul>
+<li>scalable and elastic IT-enabled capabilities</li>
+<li>delivered as a service</li>
+</ul>
+</li>
+<li>Forrester Research<ul>
+<li>standardized IT capability</li>
+<li>pay-per-use</li>
+<li>self-service</li>
+</ul>
+</li>
+<li><strong>NIST 2011 (adopted in this module)</strong><ul>
+<li>a <strong>share pool</strong> of configureable computing resources</li>
+<li><strong>rapidly</strong> provisioned and released with <strong>minimal</strong> management effort<br><img src="https://cdn.jsdelivr.net/gh/LaGrange151235/myImage@main/202207091523842.png"></li>
+</ul>
+</li>
+</ul>
+<h3 id="Benifits"><a href="#Benifits" class="headerlink" title="Benifits"></a>Benifits</h3><ul>
+<li>current&#x2F;future innovations and disruptions</li>
+<li>advanced capability around AI, blockchain, IoT among others</li>
+<li>reduces business cost: improves match between <strong>elastic resource demand</strong> and <strong>elastic computing resource</strong><br><img src="https://cdn.jsdelivr.net/gh/LaGrange151235/myImage@main/202207091548387.png"><ul>
+<li>improves availability and elasticity</li>
+<li>reduces cost</li>
+</ul>
+</li>
+<li>more economical cost model<br><img src="https://cdn.jsdelivr.net/gh/LaGrange151235/myImage@main/202207091600470.png"><ul>
+<li>traditional IT(on-premise)（预置）<ul>
+<li>fixed cost for equipment purchase and maintain</li>
+<li>variable cost for using</li>
+</ul>
+</li>
+<li>cloud computing: only variable cost for using</li>
+</ul>
+</li>
+</ul>
+<h3 id="Key-Business-Drivers-Elastic-resource-amp-Capacity-planning"><a href="#Key-Business-Drivers-Elastic-resource-amp-Capacity-planning" class="headerlink" title="Key Business Drivers: Elastic resource &amp; Capacity planning"></a>Key Business Drivers: Elastic resource &amp; Capacity planning</h3><h4 id="Capacity-planning"><a href="#Capacity-planning" class="headerlink" title="Capacity planning"></a>Capacity planning</h4><ul>
+<li>Strategies<ul>
+<li>lead strategy: add capacity in <strong>anticipation</strong> of demand(prepare for <strong>future</strong> need)</li>
+<li>lag strategy: add capacity when resources reaches its full capacity(enable more resources <strong>after demand overflow</strong>)</li>
+<li>match strategy: add capacity in <strong>small increments</strong> as demand increases(always make sure the capacity is <strong>greater</strong> than demand)</li>
+</ul>
+</li>
+</ul>
+<h4 id="Cost-reduction"><a href="#Cost-reduction" class="headerlink" title="Cost reduction"></a>Cost reduction</h4><ul>
+<li>Costs: up-front invesment costs + operational costs</li>
+<li>Operational costs<ul>
+<li>staffs</li>
+<li>utility bills(power, cooling, …)</li>
+<li>security</li>
+<li>administration</li>
+</ul>
+</li>
+</ul>
+<h4 id="Organization-agility"><a href="#Organization-agility" class="headerlink" title="Organization agility"></a>Organization agility</h4><ul>
+<li><strong>elastic IT resources</strong> to response to business cycles beyond what was <strong>previously predicted</strong> or <strong>planned</strong></li>
+<li>software fixes&#x2F;updates: updating <strong>datacenters</strong> is easier than updating millions of clients(<strong>centralize</strong>)</li>
+<li>datacenter allows faster introduction of <strong>new hardware innovations</strong>(<strong>centralize</strong>)</li>
+</ul>
+<h3 id="Scaling"><a href="#Scaling" class="headerlink" title="Scaling"></a>Scaling</h3><h4 id="Basic-Concepts-and-Terminology"><a href="#Basic-Concepts-and-Terminology" class="headerlink" title="Basic Concepts and Terminology"></a>Basic Concepts and Terminology</h4><ul>
+<li>Physical resources<ul>
+<li>Physical server</li>
+<li>Storage device</li>
+<li>Network device</li>
+</ul>
+</li>
+<li>Cloud resources<ul>
+<li>Virtual server</li>
+<li>Software program</li>
+<li>Service</li>
+</ul>
+</li>
+</ul>
+<h4 id="Horizontal-Scaling"><a href="#Horizontal-Scaling" class="headerlink" title="Horizontal Scaling"></a>Horizontal Scaling</h4><ul>
+<li><p><strong>same</strong> resource type</p>
+</li>
+<li><p><strong>more nodes</strong><br><img src="https://cdn.jsdelivr.net/gh/LaGrange151235/myImage@main/202207091710029.png"></p>
+</li>
+<li><p>Less expensive using commodity hardware</p>
+</li>
+<li><p>Resources instantly available </p>
+</li>
+<li><p>Resource replication and automated scaling</p>
+</li>
+<li><p>Additional IT resources needed </p>
+</li>
+<li><p>Not limited by hardware capacity</p>
+</li>
+</ul>
+<h4 id="Vertical-Scaling"><a href="#Vertical-Scaling" class="headerlink" title="Vertical Scaling"></a>Vertical Scaling</h4><ul>
+<li>replace resource with <strong>higher or lower capacity</strong></li>
+<li>add resources to <strong>a single node</strong><br><img src="https://cdn.jsdelivr.net/gh/LaGrange151235/myImage@main/202207091710914.png"></li>
+<li>More expensive using specialized hardware</li>
+<li>Resources normally instantly available</li>
+<li>May need additional setup</li>
+<li>No additional IT resources needed</li>
+<li>Limited by maximum hardware capacity</li>
+</ul>
+<h3 id="Trust-Boundaries"><a href="#Trust-Boundaries" class="headerlink" title="Trust Boundaries"></a>Trust Boundaries</h3><p><img src="https://cdn.jsdelivr.net/gh/LaGrange151235/myImage@main/202207091758567.png"><br>Different organization <strong>subscribe same cloud service</strong> will meet overlapping of trust boundaries.</p>
+<h2 id="Cloud‐enabled-Data-Analytics"><a href="#Cloud‐enabled-Data-Analytics" class="headerlink" title="Cloud‐enabled Data Analytics"></a>Cloud‐enabled Data Analytics</h2><h3 id="Big-Data"><a href="#Big-Data" class="headerlink" title="Big Data"></a>Big Data</h3><ul>
+<li>Variety: Data types<ul>
+<li>Structured: Formal schema and data models</li>
+<li>Unstructed: No pre-defined data model</li>
+<li>Semi-structured: Lack strict data model structure</li>
+<li>Mixed: Various types together</li>
+</ul>
+</li>
+<li>Velocity: Data production and processing speed<ul>
+<li>Batch: At time intervals</li>
+<li>Near-time: At small time intervals</li>
+<li>Real-time: Continuous input, process and output</li>
+<li>Streams: Data flows</li>
+</ul>
+</li>
+<li>Volume: Data size</li>
+<li>Veracity: Data reliability and trust</li>
+<li>Value: Worth derived from exploiting big data</li>
+</ul>
+<h3 id="Analytics-Workflow-for-Big-Data"><a href="#Analytics-Workflow-for-Big-Data" class="headerlink" title="Analytics Workflow for Big Data"></a>Analytics Workflow for Big Data</h3><p><img src="https://cdn.jsdelivr.net/gh/LaGrange151235/myImage@main/202207092059411.png"></p>
+<h3 id="Analytics-Solutions"><a href="#Analytics-Solutions" class="headerlink" title="Analytics Solutions"></a>Analytics Solutions</h3><ul>
+<li>Descriptive: <strong>model</strong> past behavior</li>
+<li>Predictive: <strong>forecasts</strong> based on available data</li>
+<li>Prescriptive: assess actions, <strong>assist decision making</strong></li>
+</ul>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/NUS-Summer-Workshop-2022/" rel="tag"># NUS Summer Workshop 2022</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2022/07/10/MIT6.S081%20Lab5%20Copy-on-Write%20Fork%20for%20xv6/" rel="prev" title="MIT6.S081 Lab5 Copy-on-Write Fork for xv6">
+      <i class="fa fa-chevron-left"></i> MIT6.S081 Lab5 Copy-on-Write Fork for xv6
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2022/07/10/SWS3004%20L02%20Why%20Cloud%20Computing%20Projects/" rel="next" title="SWS3004 L02 Why Cloud Computing Projects">
+      SWS3004 L02 Why Cloud Computing Projects <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Three-Eras-of-Computing"><span class="nav-number">1.</span> <span class="nav-text">Three Eras of Computing</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Cognitive-Computing"><span class="nav-number">1.1.</span> <span class="nav-text">Cognitive Computing</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Cognitive-Computing-Model"><span class="nav-number">1.2.</span> <span class="nav-text">Cognitive Computing Model</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Cloud-Computing"><span class="nav-number">2.</span> <span class="nav-text">Cloud Computing</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Key-Terms"><span class="nav-number">2.1.</span> <span class="nav-text">Key Terms</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Definitions"><span class="nav-number">2.2.</span> <span class="nav-text">Definitions</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Benifits"><span class="nav-number">2.3.</span> <span class="nav-text">Benifits</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Key-Business-Drivers-Elastic-resource-amp-Capacity-planning"><span class="nav-number">2.4.</span> <span class="nav-text">Key Business Drivers: Elastic resource &amp; Capacity planning</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Capacity-planning"><span class="nav-number">2.4.1.</span> <span class="nav-text">Capacity planning</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Cost-reduction"><span class="nav-number">2.4.2.</span> <span class="nav-text">Cost reduction</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Organization-agility"><span class="nav-number">2.4.3.</span> <span class="nav-text">Organization agility</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Scaling"><span class="nav-number">2.5.</span> <span class="nav-text">Scaling</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Basic-Concepts-and-Terminology"><span class="nav-number">2.5.1.</span> <span class="nav-text">Basic Concepts and Terminology</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Horizontal-Scaling"><span class="nav-number">2.5.2.</span> <span class="nav-text">Horizontal Scaling</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Vertical-Scaling"><span class="nav-number">2.5.3.</span> <span class="nav-text">Vertical Scaling</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Trust-Boundaries"><span class="nav-number">2.6.</span> <span class="nav-text">Trust Boundaries</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Cloud%E2%80%90enabled-Data-Analytics"><span class="nav-number">3.</span> <span class="nav-text">Cloud‐enabled Data Analytics</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Big-Data"><span class="nav-number">3.1.</span> <span class="nav-text">Big Data</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Analytics-Workflow-for-Big-Data"><span class="nav-number">3.2.</span> <span class="nav-text">Analytics Workflow for Big Data</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Analytics-Solutions"><span class="nav-number">3.3.</span> <span class="nav-text">Analytics Solutions</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Jiayi Zhang"
+      src="/uploads/avatar.jpg">
+  <p class="site-author-name" itemprop="name">Jiayi Zhang</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">9</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">2</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">2</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/LaGrange151235" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;LaGrange151235" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:zhangjiayi1512@outlook.com" title="E-Mail → mailto:zhangjiayi1512@outlook.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+
+
+      </div>
+        <div class="back-to-top motion-element">
+          <i class="fa fa-arrow-up"></i>
+          <span>0%</span>
+        </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Jiayi Zhang</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+      
+
+<script>
+  if (typeof MathJax === 'undefined') {
+    window.MathJax = {
+      loader: {
+          load: ['[tex]/mhchem'],
+        source: {
+          '[tex]/amsCd': '[tex]/amscd',
+          '[tex]/AMScd': '[tex]/amscd'
+        }
+      },
+      tex: {
+        inlineMath: {'[+]': [['$', '$']]},
+          packages: {'[+]': ['mhchem']},
+        tags: 'ams'
+      },
+      options: {
+        renderActions: {
+          findScript: [10, doc => {
+            document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
+              const display = !!node.type.match(/; *mode=display/);
+              const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+              const text = document.createTextNode('');
+              node.parentNode.replaceChild(text, node);
+              math.start = {node: text, delim: '', n: 0};
+              math.end = {node: text, delim: '', n: 0};
+              doc.math.push(math);
+            });
+          }, '', false],
+          insertedScript: [200, () => {
+            document.querySelectorAll('mjx-container').forEach(node => {
+              let target = node.parentNode;
+              if (target.nodeName.toLowerCase() === 'li') {
+                target.parentNode.classList.add('has-jax');
+              }
+            });
+          }, '', false]
+        }
+      }
+    };
+    (function () {
+      var script = document.createElement('script');
+      script.src = '//cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js';
+      script.defer = true;
+      document.head.appendChild(script);
+    })();
+  } else {
+    MathJax.startup.document.state(0);
+    MathJax.texReset();
+    MathJax.typeset();
+  }
+</script>
+
+    
+
+  
+
+</body>
+</html>
