@@ -590,6 +590,12 @@ What is the output? Here’s an ASCII table that maps bytes to characters.<br>$ 
 <li>Measured service (<strong>pay-per-use</strong>)</li>
 </ol>
 <h2 id="Cloud-Service-Delivery-Models"><a href="#Cloud-Service-Delivery-Models" class="headerlink" title="Cloud Service(Delivery) Models"></a>Cloud Service(Delivery) Models</h2><p><img src="https://cdn.jsdelivr.net/gh/LaGrange151235/myImage@main/202207110958123.png"></p>
+<h3 id="Infrastructure-as-a-Service-IaaS"><a href="#Infrastructure-as-a-Service-IaaS" class="headerlink" title="Infrastructure-as-a-Service (IaaS)"></a>Infrastructure-as-a-Service (IaaS)</h3><p><img src="https://cdn.jsdelivr.net/gh/LaGrange151235/myImage@main/202207111016476.png"></p>
+<ul>
+<li><strong>Virtual Server</strong> is an IaaS environment(always with a VM), it provides virtualized server resources.<br><img src="https://cdn.jsdelivr.net/gh/LaGrange151235/myImage@main/202207111020767.png"></li>
+</ul>
+<h3 id="Platform-as-a-Service-PaaS"><a href="#Platform-as-a-Service-PaaS" class="headerlink" title="Platform-as-a-Service (PaaS)"></a>Platform-as-a-Service (PaaS)</h3><p><img src="https://cdn.jsdelivr.net/gh/LaGrange151235/myImage@main/202207111026460.png"></p>
+<h3 id="Software-as-a-Service-SaaS"><a href="#Software-as-a-Service-SaaS" class="headerlink" title="Software-as-a-Service (SaaS)"></a>Software-as-a-Service (SaaS)</h3><p><img src="https://cdn.jsdelivr.net/gh/LaGrange151235/myImage@main/202207111022647.png"></p>
 <h2 id="Conceptual-Reference-Architecture"><a href="#Conceptual-Reference-Architecture" class="headerlink" title="Conceptual Reference Architecture"></a>Conceptual Reference Architecture</h2><h2 id="Cloud-Deployment-Models"><a href="#Cloud-Deployment-Models" class="headerlink" title="Cloud Deployment Models"></a>Cloud Deployment Models</h2>]]></content>
       <categories>
         <category>NUS Summer Workshop 2022</category>
