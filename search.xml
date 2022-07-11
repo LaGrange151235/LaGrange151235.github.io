@@ -673,4 +673,21 @@ What is the output? Here’s an ASCII table that maps bytes to characters.<br>$ 
         <tag>NUS Summer Workshop 2022</tag>
       </tags>
   </entry>
+  <entry>
+    <title>SWS3004 L04 Applications and Paradigms</title>
+    <url>/2022/07/11/SWS3004%20L04%20Applications%20and%20Paradigms/</url>
+    <content><![CDATA[<h2 id="Common-Features-of-Cloud-Providers"><a href="#Common-Features-of-Cloud-Providers" class="headerlink" title="Common Features of Cloud Providers"></a>Common Features of Cloud Providers</h2><ul>
+<li>Basic and higher-level services (IaaS -&gt; SaaS): <strong>different level of abstraction</strong> provides flexibility while developing applications</li>
+<li>Compute and storage resources: <strong>virtual servers</strong> (Linux and Windows) and object store</li>
+<li>Deployment <strong>management</strong> services: load balancer, auto-scaling, message queueing, monitoring, …</li>
+<li>User <strong>interface</strong>: graphical user interface, command-line interface</li>
+</ul>
+<h2 id="Cloud-Applications"><a href="#Cloud-Applications" class="headerlink" title="Cloud Applications"></a>Cloud Applications</h2>]]></content>
+      <categories>
+        <category>NUS Summer Workshop 2022</category>
+      </categories>
+      <tags>
+        <tag>NUS Summer Workshop 2022</tag>
+      </tags>
+  </entry>
 </search>
