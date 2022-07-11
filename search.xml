@@ -481,24 +481,6 @@
       </tags>
   </entry>
   <entry>
-    <title>Hello World</title>
-    <url>/2022/07/10/hello-world/</url>
-    <content><![CDATA[<p>Welcome to <a href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo new <span class="string">&quot;My New Post&quot;</span></span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/writing.html">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/server.html">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/generating.html">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>
-]]></content>
-  </entry>
-  <entry>
     <title>MIT6.S081 Lab4 Traps</title>
     <url>/2022/07/10/MIT6.S081%20Lab4%20Traps/</url>
     <content><![CDATA[<h2 id="RISC-V-assembly"><a href="#RISC-V-assembly" class="headerlink" title="RISC-V assembly"></a>RISC-V assembly</h2><ul>
@@ -569,6 +551,51 @@ What is the output? Here’s an ASCII table that maps bytes to characters.<br>$ 
       </categories>
       <tags>
         <tag>MIT6.S081Lab</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>SWS3004 L03 Concepts and Models</title>
+    <url>/2022/07/11/SWS3004%20L03%20Concepts%20and%20Models/</url>
+    <content><![CDATA[<h2 id="NIST-Definition"><a href="#NIST-Definition" class="headerlink" title="NIST Definition"></a>NIST Definition</h2><blockquote>
+<p>Cloud Computing (NIST 2011)<br>“… a model for enabling ubiquitous, convenient, on-demand network access to a shared pool of <strong>configurable computing resources</strong> (e.g., networks, servers, storage, applications and services) that can be <strong>rapidly provisioned</strong> and released with <strong>minimal management effort</strong> or <strong>service provider interaction</strong> …</p>
+</blockquote>
+<ul>
+<li>CHARACTERISTICS<ul>
+<li>On-demand self-service: no need to contact the service provider</li>
+<li>Broad network access: can be accessed by the internet</li>
+<li>Resource pooling: support the elastic</li>
+<li>Rapid elasticity: realtime response</li>
+<li>Measured service: pay per use</li>
+</ul>
+</li>
+<li>DEPLOYMENT MODELS<ul>
+<li>Private Cloud</li>
+<li>Community Cloud</li>
+<li>Public Cloud</li>
+<li>Hybrid Cloud</li>
+</ul>
+</li>
+<li>SERVICE MODELS<ul>
+<li>Software-as-a-Service (SaaS) &#x3D;&gt; software as the smallest element</li>
+<li>Platform-as-a-Service (PaaS) &#x3D;&gt; platform(maybe a set of softwares) as the smallest element</li>
+<li>Infrastructure-as-a-Service (IaaS) &#x3D;&gt; infrastructure(maybe a VM) as the smallest element</li>
+</ul>
+</li>
+</ul>
+<h2 id="Cloud-Characteristics"><a href="#Cloud-Characteristics" class="headerlink" title="Cloud Characteristics"></a>Cloud Characteristics</h2><ol>
+<li>On-demand <strong>self-service</strong> through a service portal</li>
+<li>Broad network access (<strong>ubiquitous(everywhere)</strong> access)</li>
+<li><strong>Location-independent</strong> resource pooling (multi-tenancy)</li>
+<li><strong>Rapid</strong> elasticity – time to market &#x2F; fast deployment</li>
+<li>Measured service (<strong>pay-per-use</strong>)</li>
+</ol>
+<h2 id="Cloud-Service-Delivery-Models"><a href="#Cloud-Service-Delivery-Models" class="headerlink" title="Cloud Service(Delivery) Models"></a>Cloud Service(Delivery) Models</h2><p><img src="https://cdn.jsdelivr.net/gh/LaGrange151235/myImage@main/202207110958123.png"></p>
+<h2 id="Conceptual-Reference-Architecture"><a href="#Conceptual-Reference-Architecture" class="headerlink" title="Conceptual Reference Architecture"></a>Conceptual Reference Architecture</h2><h2 id="Cloud-Deployment-Models"><a href="#Cloud-Deployment-Models" class="headerlink" title="Cloud Deployment Models"></a>Cloud Deployment Models</h2>]]></content>
+      <categories>
+        <category>NUS Summer Workshop 2022</category>
+      </categories>
+      <tags>
+        <tag>NUS Summer Workshop 2022</tag>
       </tags>
   </entry>
 </search>
