@@ -717,6 +717,34 @@ What is the output? Here’s an ASCII table that maps bytes to characters.<br>$ 
 <li>Cloud services are accessed by different clients using different programming languages and technologies</li>
 </ul>
 <p><img src="https://cdn.jsdelivr.net/gh/LaGrange151235/myImage@main/202207121022146.png"></p>
+<h2 id="Infrastructure-as-a-Service"><a href="#Infrastructure-as-a-Service" class="headerlink" title="Infrastructure as a Service"></a>Infrastructure as a Service</h2><p><img src="https://cdn.jsdelivr.net/gh/LaGrange151235/myImage@main/202207121038599.png"></p>
+<ul>
+<li><strong>Web access</strong> to resources</li>
+<li><strong>Centralized physical</strong> resource management</li>
+<li>Elastic services and <strong>dynamic scaling</strong></li>
+<li><strong>Shared</strong> infrastructure across multiple users</li>
+<li><strong>Preconfigured</strong> VMs</li>
+<li>Metered services</li>
+</ul>
+<h2 id="Platform-as-a-Service"><a href="#Platform-as-a-Service" class="headerlink" title="Platform as a Service"></a>Platform as a Service</h2><p><img src="https://cdn.jsdelivr.net/gh/LaGrange151235/myImage@main/202207121039397.png"></p>
+<ul>
+<li>All in one – <strong>same IDE</strong> to develop, test, deploy, host and maintain applications</li>
+<li><strong>Web access</strong> to development platforms</li>
+<li><strong>Offline access</strong> for developers</li>
+<li><strong>Built-in</strong> scalability</li>
+<li><strong>Collaborative</strong> platform for developers</li>
+<li>Diverse client tools</li>
+</ul>
+<h2 id="Software-as-a-Service"><a href="#Software-as-a-Service" class="headerlink" title="Software as a Service"></a>Software as a Service</h2><p><img src="https://cdn.jsdelivr.net/gh/LaGrange151235/myImage@main/202207121103005.png"></p>
+<ul>
+<li><strong>Multi-tenanted</strong> applications</li>
+<li><strong>Web access</strong></li>
+<li><strong>Centralized</strong> management of SaaS services</li>
+<li><strong>Multi-device(and multi-browser)</strong> support</li>
+<li><strong>Scalability</strong> under varying loads</li>
+<li><strong>High availability</strong></li>
+<li><strong>API integration</strong> with other softwar</li>
+</ul>
 ]]></content>
       <categories>
         <category>NUS Summer Workshop 2022</category>
