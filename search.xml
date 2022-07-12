@@ -763,6 +763,11 @@ What is the output? Here’s an ASCII table that maps bytes to characters.<br>$ 
 <li>Configures a new blog</li>
 <li>Blogs happily about IaaS development<br><img src="https://cdn.jsdelivr.net/gh/LaGrange151235/myImage@main/202207121141365.png"></li>
 </ol>
+<h3 id="FaaS"><a href="#FaaS" class="headerlink" title="*FaaS"></a>*FaaS</h3><ul>
+<li><strong>Event-driven</strong> system</li>
+<li>use <strong>lambda functions</strong> triggered by events</li>
+<li>implement <strong>severless</strong> applications without need to provision or manage servers<br><img src="https://cdn.jsdelivr.net/gh/LaGrange151235/myImage@main/202207121152923.png"><br><img src="https://cdn.jsdelivr.net/gh/LaGrange151235/myImage@main/202207121152075.png"></li>
+</ul>
 ]]></content>
       <categories>
         <category>NUS Summer Workshop 2022</category>
