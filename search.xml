@@ -698,7 +698,26 @@ What is the output? Here’s an ASCII table that maps bytes to characters.<br>$ 
 <li>Latency and bandwidth fluctuations</li>
 <li>Performance limit</li>
 </ul>
-<h3 id="Architectural-Styles-for-Cloud-Applications"><a href="#Architectural-Styles-for-Cloud-Applications" class="headerlink" title="Architectural Styles for Cloud Applications"></a>Architectural Styles for Cloud Applications</h3>]]></content>
+<h3 id="Architectural-Styles-for-Cloud-Applications"><a href="#Architectural-Styles-for-Cloud-Applications" class="headerlink" title="Architectural Styles for Cloud Applications"></a>Architectural Styles for Cloud Applications</h3><ul>
+<li>“as-a-service” cloud delivery models<ul>
+<li>Simple Object Access Protocol(SOAP)<ul>
+<li>based on then <strong>XML</strong></li>
+<li>uses <strong>TCP</strong> or <strong>UDP</strong> transport protocols</li>
+</ul>
+</li>
+<li>Representational State Transfer(REST)<ul>
+<li>usually use <strong>JSON</strong></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h4 id="Web-Services-for-Cloud-Applications"><a href="#Web-Services-for-Cloud-Applications" class="headerlink" title="Web Services for Cloud Applications"></a>Web Services for Cloud Applications</h4><ul>
+<li>Cloud services are naturally distributed</li>
+<li>Cloud services are accessed by different clients using different programming languages and technologies</li>
+</ul>
+<p><img src="https://cdn.jsdelivr.net/gh/LaGrange151235/myImage@main/202207121022146.png"></p>
+]]></content>
       <categories>
         <category>NUS Summer Workshop 2022</category>
       </categories>
