@@ -743,8 +743,26 @@ What is the output? Here’s an ASCII table that maps bytes to characters.<br>$ 
 <li><strong>Multi-device(and multi-browser)</strong> support</li>
 <li><strong>Scalability</strong> under varying loads</li>
 <li><strong>High availability</strong></li>
-<li><strong>API integration</strong> with other softwar</li>
+<li><strong>API integration</strong> with other software</li>
 </ul>
+<h2 id="Examples-of-Setting-up-a-Blog"><a href="#Examples-of-Setting-up-a-Blog" class="headerlink" title="Examples of Setting up a Blog"></a>Examples of Setting up a Blog</h2><h3 id="SaaS"><a href="#SaaS" class="headerlink" title="SaaS"></a>SaaS</h3><ol>
+<li>Accesses a server with Wordpress installed and<br>configured</li>
+<li>Setup a new blog</li>
+<li>Blogs happily about SaaS development</li>
+</ol>
+<h3 id="PaaS"><a href="#PaaS" class="headerlink" title="PaaS"></a>PaaS</h3><ol>
+<li>Accesses a system with Linux, Apache, MySQL and PHP<br>(LAMP)</li>
+<li>Installs and configures Wordpress blog engine</li>
+<li>Setup a new blog</li>
+<li>Blogs happily about PaaS provisioning<br><img src="https://cdn.jsdelivr.net/gh/LaGrange151235/myImage@main/202207121141203.png"></li>
+</ol>
+<h3 id="IaaS"><a href="#IaaS" class="headerlink" title="IaaS"></a>IaaS</h3><ol>
+<li>Creates a compute instance running Linux</li>
+<li>Installs and configures Apache, MySQL and PHP</li>
+<li>Installs and configures Wordpress blog engine</li>
+<li>Configures a new blog</li>
+<li>Blogs happily about IaaS development<br><img src="https://cdn.jsdelivr.net/gh/LaGrange151235/myImage@main/202207121141365.png"></li>
+</ol>
 ]]></content>
       <categories>
         <category>NUS Summer Workshop 2022</category>
