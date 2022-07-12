@@ -692,7 +692,13 @@ What is the output? Here’s an ASCII table that maps bytes to characters.<br>$ 
 </li>
 <li>unideal applications: complex workflow, multiple dependencies, intensive communication and arbitrarily inpartible</li>
 </ul>
-<h3 id="Challenges-in-Developing-Cloud-Applications"><a href="#Challenges-in-Developing-Cloud-Applications" class="headerlink" title="Challenges in Developing Cloud Applications"></a>Challenges in Developing Cloud Applications</h3>]]></content>
+<h3 id="Challenges-in-Developing-Cloud-Applications"><a href="#Challenges-in-Developing-Cloud-Applications" class="headerlink" title="Challenges in Developing Cloud Applications"></a>Challenges in Developing Cloud Applications</h3><ul>
+<li>Performance isolation</li>
+<li>Reliability</li>
+<li>Latency and bandwidth fluctuations</li>
+<li>Performance limit</li>
+</ul>
+<h3 id="Architectural-Styles-for-Cloud-Applications"><a href="#Architectural-Styles-for-Cloud-Applications" class="headerlink" title="Architectural Styles for Cloud Applications"></a>Architectural Styles for Cloud Applications</h3>]]></content>
       <categories>
         <category>NUS Summer Workshop 2022</category>
       </categories>
