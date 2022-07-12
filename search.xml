@@ -682,7 +682,17 @@ What is the output? Here’s an ASCII table that maps bytes to characters.<br>$ 
 <li>Deployment <strong>management</strong> services: load balancer, auto-scaling, message queueing, monitoring, …</li>
 <li>User <strong>interface</strong>: graphical user interface, command-line interface</li>
 </ul>
-<h2 id="Cloud-Applications"><a href="#Cloud-Applications" class="headerlink" title="Cloud Applications"></a>Cloud Applications</h2>]]></content>
+<h2 id="Cloud-Applications"><a href="#Cloud-Applications" class="headerlink" title="Cloud Applications"></a>Cloud Applications</h2><ul>
+<li>ideal applications: massive computing<ul>
+<li>web</li>
+<li>database</li>
+<li>search</li>
+<li>ML with massive-scale models</li>
+</ul>
+</li>
+<li>unideal applications: complex workflow, multiple dependencies, intensive communication and arbitrarily inpartible</li>
+</ul>
+<h3 id="Challenges-in-Developing-Cloud-Applications"><a href="#Challenges-in-Developing-Cloud-Applications" class="headerlink" title="Challenges in Developing Cloud Applications"></a>Challenges in Developing Cloud Applications</h3>]]></content>
       <categories>
         <category>NUS Summer Workshop 2022</category>
       </categories>
