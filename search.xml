@@ -802,6 +802,34 @@ What is the output? Here’s an ASCII table that maps bytes to characters.<br>$ 
 <li>Data consumers</li>
 <li>Hardware</li>
 </ul>
+<h2 id="Assessing-the-Viability-of-a-Big-Data-Solution"><a href="#Assessing-the-Viability-of-a-Big-Data-Solution" class="headerlink" title="Assessing the Viability of a Big Data Solution"></a>Assessing the Viability of a Big Data Solution</h2><ul>
+<li>Value or what insights are possible</li>
+<li>Volume of data</li>
+<li>Variety of data sources</li>
+<li>Velocity of data generation</li>
+<li>Veracity of data: whether data trustworthy or not</li>
+<li>Governance considerations</li>
+<li>People: considering human influence</li>
+</ul>
+<h2 id="Architectural-Layers-of-a-Big-Data-Solution"><a href="#Architectural-Layers-of-a-Big-Data-Solution" class="headerlink" title="Architectural Layers of a Big Data Solution"></a>Architectural Layers of a Big Data Solution</h2><p><img src="https://cdn.jsdelivr.net/gh/LaGrange151235/myImage@main/202207131151496.png"></p>
+<h3 id="Big-Data-Source"><a href="#Big-Data-Source" class="headerlink" title="Big Data Source"></a>Big Data Source</h3><p><img src="https://cdn.jsdelivr.net/gh/LaGrange151235/myImage@main/202207131157276.png"></p>
+<ul>
+<li>Format</li>
+<li>Velocity</li>
+<li>Volume</li>
+<li>Collection point</li>
+<li>Location of data source</li>
+</ul>
+<h3 id="Data-Messaging-and-Store-Layer"><a href="#Data-Messaging-and-Store-Layer" class="headerlink" title="Data Messaging and Store Layer"></a>Data Messaging and Store Layer</h3><p><img src="https://cdn.jsdelivr.net/gh/LaGrange151235/myImage@main/202207131157066.png"></p>
+<h3 id="Data-Analysis-Layer"><a href="#Data-Analysis-Layer" class="headerlink" title="Data Analysis Layer"></a>Data Analysis Layer</h3><p><img src="https://cdn.jsdelivr.net/gh/LaGrange151235/myImage@main/202207131157889.png"></p>
+<ul>
+<li>Produce the desired analytics</li>
+<li>Derive insight from the data</li>
+<li>Find the entities required</li>
+<li>Locate the data sources that can provide data for these entities</li>
+<li>Understand what algorithms and tools are required to perform the analytics.</li>
+</ul>
+<h3 id="Consumption-Layer"><a href="#Consumption-Layer" class="headerlink" title="Consumption Layer"></a>Consumption Layer</h3><p><img src="https://cdn.jsdelivr.net/gh/LaGrange151235/myImage@main/202207131157715.png"></p>
 ]]></content>
       <categories>
         <category>NUS Summer Workshop 2022</category>
