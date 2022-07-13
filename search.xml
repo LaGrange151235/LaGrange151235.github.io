@@ -776,4 +776,38 @@ What is the output? Here’s an ASCII table that maps bytes to characters.<br>$ 
         <tag>NUS Summer Workshop 2022</tag>
       </tags>
   </entry>
+  <entry>
+    <title>SWS3004 L06 Big Data Architecture and Pattern</title>
+    <url>/2022/07/13/SWS3004%20L06%20Big%20Data%20Architecture%20and%20Patterns/</url>
+    <content><![CDATA[<h2 id="Introduction-to-Big-Data-Classification-and-Architecture"><a href="#Introduction-to-Big-Data-Classification-and-Architecture" class="headerlink" title="Introduction to Big Data Classification and Architecture"></a>Introduction to Big Data Classification and Architecture</h2><h3 id="Classifying-Big-Data-Problem-according-to-Type-of-Big-Data"><a href="#Classifying-Big-Data-Problem-according-to-Type-of-Big-Data" class="headerlink" title="Classifying Big Data Problem according to Type of Big Data"></a>Classifying Big Data Problem according to Type of Big Data</h3><p><img src="https://cdn.jsdelivr.net/gh/LaGrange151235/myImage@main/202207131054072.png"></p>
+<h3 id="Classify-Big-Data-Characteristics"><a href="#Classify-Big-Data-Characteristics" class="headerlink" title="Classify Big Data Characteristics"></a>Classify Big Data Characteristics</h3><p><img src="https://cdn.jsdelivr.net/gh/LaGrange151235/myImage@main/202207131103030.png"></p>
+<ul>
+<li>Analysis type<ul>
+<li>real time</li>
+<li>batch</li>
+</ul>
+</li>
+<li>Processing methodology<ul>
+<li>Predictive Analysis</li>
+<li>Analytical</li>
+<li>Query and Reporting</li>
+</ul>
+</li>
+<li>Content format<ul>
+<li>structured&#x2F;unstructured&#x2F;semi-structured</li>
+<li>images, text, videos, documents, audio …</li>
+</ul>
+</li>
+<li>Data sources</li>
+<li>Data consumers</li>
+<li>Hardware</li>
+</ul>
+]]></content>
+      <categories>
+        <category>NUS Summer Workshop 2022</category>
+      </categories>
+      <tags>
+        <tag>NUS Summer Workshop 2022</tag>
+      </tags>
+  </entry>
 </search>
