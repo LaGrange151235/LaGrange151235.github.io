@@ -185,6 +185,99 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://lagrange151235.github.io/2022/07/18/SWS3004%20Praising%20Chatbot%20%E5%A6%82%E4%BD%95%E9%80%9A%E8%BF%87%E5%BE%AE%E4%BF%A1%E5%85%AC%E4%BC%97%E5%8F%B7%E9%83%A8%E7%BD%B2%E8%81%8A%E5%A4%A9%E6%9C%BA%E5%99%A8%E4%BA%BA/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="https://cdn.jsdelivr.net/gh/LaGrange151235/myImage@main/Avatar.jpg">
+      <meta itemprop="name" content="Jiayi Zhang">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="LaGrange's Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2022/07/18/SWS3004%20Praising%20Chatbot%20%E5%A6%82%E4%BD%95%E9%80%9A%E8%BF%87%E5%BE%AE%E4%BF%A1%E5%85%AC%E4%BC%97%E5%8F%B7%E9%83%A8%E7%BD%B2%E8%81%8A%E5%A4%A9%E6%9C%BA%E5%99%A8%E4%BA%BA/" class="post-title-link" itemprop="url">如何通过微信公众号部署聊天机器人</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2022-07-18 20:47:46 / 修改时间：21:31:39" itemprop="dateCreated datePublished" datetime="2022-07-18T20:47:46+08:00">2022-07-18</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/NUS-Summer-Workshop-2022-Praising-Chatbo-Project/" itemprop="url" rel="index"><span itemprop="name">NUS Summer Workshop 2022 Praising Chatbo Project</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="注册微信公众号"><a href="#注册微信公众号" class="headerlink" title="注册微信公众号"></a>注册微信公众号</h2><p>首先进入<a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/cgi-bin/registermidpage?action=index&lang=zh_CN&token=">注册页面</a><br><img src="https://cdn.jsdelivr.net/gh/LaGrange151235/myImage@main/202207182050728.png"><br>由于我们是个人用户，所以选择订阅号<br><img src="https://cdn.jsdelivr.net/gh/LaGrange151235/myImage@main/202207182053932.png"><br>然后按照流程注册即可。</p>
+<h2 id="开启微信公众号开发者模式"><a href="#开启微信公众号开发者模式" class="headerlink" title="开启微信公众号开发者模式"></a>开启微信公众号开发者模式</h2><p>在左侧工具栏中选中“设置与开发-基本配置”<br><img src="https://cdn.jsdelivr.net/gh/LaGrange151235/myImage@main/202207182056307.png"><br>在右侧控制面板中找到“服务器配置”（我的已经启用了），点击“修改配置”<br><img src="https://cdn.jsdelivr.net/gh/LaGrange151235/myImage@main/202207182058219.png"><br>看到如下内容，其中：</p>
+<ul>
+<li>URL：服务器的ip</li>
+<li>Token：使用者自行设定，之后需要在服务器上自行编码完成验证</li>
+<li>EncodingAESKey：点击“随机生成”即可自动生成<br><img src="https://cdn.jsdelivr.net/gh/LaGrange151235/myImage@main/202207182100224.png"></li>
+</ul>
+<p>注意，此时是无法成功提交的，需要在服务器上进行环境配置</p>
+<h2 id="在服务器上配置Python环境以完成Token验证"><a href="#在服务器上配置Python环境以完成Token验证" class="headerlink" title="在服务器上配置Python环境以完成Token验证"></a>在服务器上配置Python环境以完成Token验证</h2><p>以AWS的EC2 instance为例，首先需要安装python和web.py网络框架，可能还需要安装libxml2，libxslt，lxml python等包（以上为<a target="_blank" rel="noopener" href="https://developers.weixin.qq.com/doc/offiaccount/Getting_Started/Getting_Started_Guide.html">微信推荐的搭建服务框架</a>）<br>此后需要两个Python脚本来支持Token的验证，首先是main.py作为访问的入口：</p>
+<center>main.py</center>
+
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> web</span><br><span class="line"><span class="keyword">from</span> handle <span class="keyword">import</span> Handle</span><br><span class="line"></span><br><span class="line">urls = (</span><br><span class="line">    <span class="string">&#x27;/wx&#x27;</span>, <span class="string">&#x27;Handle&#x27;</span>,</span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">&#x27;__main__&#x27;</span>:</span><br><span class="line">    app = web.application(urls, <span class="built_in">globals</span>())</span><br><span class="line">    app.run()</span><br></pre></td></tr></table></figure>
+<p>然后是handle.py作为Token验证的模块：</p>
+<center>handle.py</center>
+
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> hashlib</span><br><span class="line"><span class="keyword">import</span> web</span><br><span class="line"><span class="keyword">import</span> receive</span><br><span class="line"><span class="keyword">import</span> reply</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Handle</span>(<span class="title class_ inherited__">object</span>):</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">GET</span>(<span class="params">self</span>):</span><br><span class="line">        <span class="keyword">try</span>:</span><br><span class="line">            data = web.<span class="built_in">input</span>()</span><br><span class="line">            <span class="built_in">print</span>(data)</span><br><span class="line">            <span class="keyword">if</span> <span class="built_in">len</span>(data) == <span class="number">0</span>:</span><br><span class="line">                <span class="keyword">return</span> <span class="string">&quot;hello, this is handle view&quot;</span></span><br><span class="line">            signature = data.signature</span><br><span class="line">            timestamp = data.timestamp</span><br><span class="line">            nonce = data.nonce</span><br><span class="line">            echostr = data.echostr</span><br><span class="line">            token = <span class="string">&quot;在这里填写设置的Token&quot;</span></span><br><span class="line">            li = [token, timestamp, nonce]</span><br><span class="line">            li.sort()</span><br><span class="line">            tmp_str = <span class="string">&quot;&quot;</span>.join(li).encode(<span class="string">&#x27;utf-8&#x27;</span>)</span><br><span class="line">            hashcode = hashlib.sha1(tmp_str).hexdigest()</span><br><span class="line">            <span class="built_in">print</span>(<span class="string">&quot;handle/GET func: hashcode, signature: &quot;</span>, hashcode, signature)</span><br><span class="line">            <span class="keyword">if</span> hashcode == signature:</span><br><span class="line">                <span class="keyword">return</span> echostr</span><br><span class="line">            <span class="keyword">else</span>:</span><br><span class="line">                <span class="keyword">return</span> <span class="string">&quot;&quot;</span></span><br><span class="line">        <span class="keyword">except</span> Exception <span class="keyword">as</span> Argument:</span><br><span class="line">            <span class="keyword">return</span> Argument</span><br></pre></td></tr></table></figure>
+<p>然后启动main.py来实现Token验证，注意为了能够访问80端口，可能需要在root模式下执行</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">su root</span><br><span class="line">python3 main.py 80</span><br></pre></td></tr></table></figure>
+<p>正常运行的话应该会在shell看到如下内容：<br><img src="https://cdn.jsdelivr.net/gh/LaGrange151235/myImage@main/202207182115381.png"><br>同时如果访问<a target="_blank" rel="noopener" href="http://ip/wx%E4%BC%9A%E7%9C%8B%E5%88%B0%E5%A6%82%E4%B8%8B%E5%86%85%E5%AE%B9%EF%BC%9A">http://ip/wx会看到如下内容：</a><br><img src="https://cdn.jsdelivr.net/gh/LaGrange151235/myImage@main/202207182117330.png"><br>此时如果在微信公众号平台中验证服务器，则可以通过Token验证，启用开发者模式，在对应服务器上调用微信公众号的API</p>
+<h2 id="调用微信公众号消息收发API实现复读机机器人"><a href="#调用微信公众号消息收发API实现复读机机器人" class="headerlink" title="调用微信公众号消息收发API实现复读机机器人"></a>调用微信公众号消息收发API实现复读机机器人</h2><p>这部分需要修改handle.py来实现，可喜可贺的是微信公众号消息收发API已经被前人封装成了更适合Python脚本调用的形式了，这部分的完整代码一共是四个脚本，这几份脚本可以在<a target="_blank" rel="noopener" href="https://github.com/LaGrange151235/NUS2022SummerWorkshop/tree/main/Chatbot_with_WeChat_Official_Account_API">这里</a>找到</p>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://github.com/LaGrange151235/NUS2022SummerWorkshop/blob/main/Chatbot_with_WeChat_Official_Account_API/main.py">main.py</a></li>
+<li><a target="_blank" rel="noopener" href="https://github.com/LaGrange151235/NUS2022SummerWorkshop/blob/main/Chatbot_with_WeChat_Official_Account_API/handle.py">handle.py</a></li>
+<li><a target="_blank" rel="noopener" href="https://github.com/LaGrange151235/NUS2022SummerWorkshop/blob/main/Chatbot_with_WeChat_Official_Account_API/receive.py">receive.py</a></li>
+<li><a target="_blank" rel="noopener" href="https://github.com/LaGrange151235/NUS2022SummerWorkshop/blob/main/Chatbot_with_WeChat_Official_Account_API/reply.py">reply.py</a></li>
+</ul>
+<h2 id="在关闭shell的情况下保持机器人运行"><a href="#在关闭shell的情况下保持机器人运行" class="headerlink" title="在关闭shell的情况下保持机器人运行"></a>在关闭shell的情况下保持机器人运行</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nohup python3 main.py 80</span><br></pre></td></tr></table></figure>
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="http://lagrange151235.github.io/2022/07/13/SWS3004%20L06%20Big%20Data%20Architecture%20and%20Patterns/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -284,6 +377,120 @@
 <li>Understand what algorithms and tools are required to perform the analytics.</li>
 </ul>
 <h3 id="Consumption-Layer"><a href="#Consumption-Layer" class="headerlink" title="Consumption Layer"></a>Consumption Layer</h3><p><img src="https://cdn.jsdelivr.net/gh/LaGrange151235/myImage@main/202207131157715.png"></p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://lagrange151235.github.io/2022/07/13/SWS3004%20L05%20Cloud%20Software%20Development/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="https://cdn.jsdelivr.net/gh/LaGrange151235/myImage@main/Avatar.jpg">
+      <meta itemprop="name" content="Jiayi Zhang">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="LaGrange's Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2022/07/13/SWS3004%20L05%20Cloud%20Software%20Development/" class="post-title-link" itemprop="url">SWS3004 L05 Cloud Software Development</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2022-07-13 08:56:06 / 修改时间：10:36:38" itemprop="dateCreated datePublished" datetime="2022-07-13T08:56:06+08:00">2022-07-13</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/NUS-Summer-Workshop-2022/" itemprop="url" rel="index"><span itemprop="name">NUS Summer Workshop 2022</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="Cloud-Software-Development"><a href="#Cloud-Software-Development" class="headerlink" title="Cloud Software Development"></a>Cloud Software Development</h2><ul>
+<li>SaaS changes the way software is <strong>delivered</strong></li>
+<li>PaaS changes the way the (SaaS) software is <strong>developed</strong></li>
+</ul>
+<h2 id="SaaS-in-Development"><a href="#SaaS-in-Development" class="headerlink" title="SaaS in Development"></a>SaaS in Development</h2><h3 id="Difference-Between-SaaS-and-Traditional-Software"><a href="#Difference-Between-SaaS-and-Traditional-Software" class="headerlink" title="Difference Between SaaS and Traditional Software"></a>Difference Between SaaS and Traditional Software</h3><ul>
+<li>Pay-per-use</li>
+<li>Zero infrastructure</li>
+<li>Reduced business cost</li>
+<li>Automated updates</li>
+</ul>
+<h3 id="Suitability-of-SaaS"><a href="#Suitability-of-SaaS" class="headerlink" title="Suitability of SaaS"></a>Suitability of SaaS</h3><ul>
+<li>Not suitable<ul>
+<li><strong>real-time</strong> need</li>
+<li><strong>data localization</strong> need</li>
+</ul>
+</li>
+<li>Suitable<ul>
+<li><strong>on-demand</strong> software</li>
+<li>cost saving</li>
+<li><strong>unpredictable</strong> and <strong>dynamic</strong> load</li>
+</ul>
+</li>
+</ul>
+<h3 id="SaaS-with-Self-managed-Infrastructure-and-Self-managed-Platform"><a href="#SaaS-with-Self-managed-Infrastructure-and-Self-managed-Platform" class="headerlink" title="SaaS with Self-managed Infrastructure and Self-managed Platform"></a>SaaS with Self-managed Infrastructure and Self-managed Platform</h3><p><img src="https://cdn.jsdelivr.net/gh/LaGrange151235/myImage@main/202207131026925.png"></p>
+<ul>
+<li>only SaaS layer available for multitenancy</li>
+<li>infrastructure is totally controlled by service provider -&gt; data secure</li>
+<li>low resource utilization</li>
+</ul>
+<h3 id="SaaS-with-Self-managed-Platform"><a href="#SaaS-with-Self-managed-Platform" class="headerlink" title="SaaS with Self-managed Platform"></a>SaaS with Self-managed Platform</h3><p><img src="https://cdn.jsdelivr.net/gh/LaGrange151235/myImage@main/202207131029291.png"></p>
+<ul>
+<li>SaaS and IaaS layer available for multitenancy</li>
+<li>less data security</li>
+<li>higher infrastructure resource utilization rate</li>
+<li>platform is completely maintained by service provider</li>
+</ul>
+<h3 id="SaaS-with-Self-managed-Infrastructure"><a href="#SaaS-with-Self-managed-Infrastructure" class="headerlink" title="SaaS with Self-managed Infrastructure"></a>SaaS with Self-managed Infrastructure</h3><p><img src="https://cdn.jsdelivr.net/gh/LaGrange151235/myImage@main/202207131032811.png"></p>
+<ul>
+<li>SaaS and PaaS layer available for multitenancy</li>
+<li>sharing SaaS application</li>
+<li>full governance over user data</li>
+</ul>
+<h3 id="SaaS-with-Cloud-enabled-IaaS-and-PaaS"><a href="#SaaS-with-Cloud-enabled-IaaS-and-PaaS" class="headerlink" title="SaaS with Cloud-enabled IaaS and PaaS"></a>SaaS with Cloud-enabled IaaS and PaaS</h3><p><img src="https://cdn.jsdelivr.net/gh/LaGrange151235/myImage@main/202207131034026.png"></p>
+<ul>
+<li>SaaS, PaaS and IaaS layer available for multitenancy</li>
+<li>high SaaS application scalability through dynamic scaling by IaaS and PaaS providers</li>
+</ul>
 
       
     </div>
@@ -1293,219 +1500,6 @@ What is the output? Here’s an ASCII table that maps bytes to characters.<br>$ 
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://lagrange151235.github.io/2022/07/10/MIT6.S081%20Lab3%20Page%20Tables/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="https://cdn.jsdelivr.net/gh/LaGrange151235/myImage@main/Avatar.jpg">
-      <meta itemprop="name" content="Jiayi Zhang">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="LaGrange's Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2022/07/10/MIT6.S081%20Lab3%20Page%20Tables/" class="post-title-link" itemprop="url">MIT6.S081 Lab3 Page Tables</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-              
-
-              <time title="创建时间：2022-07-10 10:22:33 / 修改时间：10:54:03" itemprop="dateCreated datePublished" datetime="2022-07-10T10:22:33+08:00">2022-07-10</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E8%87%AA%E5%AD%A6/" itemprop="url" rel="index"><span itemprop="name">自学</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h2 id="Speed-up-system-calls"><a href="#Speed-up-system-calls" class="headerlink" title="Speed up system calls"></a>Speed up system calls</h2><ul>
-<li>Hardness: <font color=green>easy</font></li>
-<li>Details: 通过对每个进程设置固定的页表USYSCALL，在初始化时保存PID，实现对系统调用getpid()的加速</li>
-<li>Implementation: <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"> <span class="comment">// in file kernel/proc.c</span></span><br><span class="line"> <span class="comment">// Create a user page table for a given process,</span></span><br><span class="line"> <span class="comment">// with no user memory, but with trampoline pages.</span></span><br><span class="line"> <span class="type">pagetable_t</span></span><br><span class="line"> <span class="title function_">proc_pagetable</span><span class="params">(<span class="keyword">struct</span> proc *p)</span></span><br><span class="line"> &#123;</span><br><span class="line">   <span class="type">pagetable_t</span> pagetable;</span><br><span class="line"></span><br><span class="line">   <span class="comment">// An empty page table.</span></span><br><span class="line">   pagetable = uvmcreate();</span><br><span class="line">   <span class="keyword">if</span>(pagetable == <span class="number">0</span>)</span><br><span class="line">       <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">   </span><br><span class="line">   ...</span><br><span class="line"></span><br><span class="line">   <span class="comment">//<span class="doctag">TODO:</span> performing the mapping to USYSCALL</span></span><br><span class="line">   <span class="keyword">if</span>(mappages(pagetable, USYSCALL, PGSIZE,</span><br><span class="line"> 	        (uint64)(p-&gt;usyscall), PTE_R | PTE_U) &lt; <span class="number">0</span>)&#123;</span><br><span class="line">        uvmunmap(pagetable, TRAMPOLINE, <span class="number">1</span>, <span class="number">0</span>);</span><br><span class="line">        uvmunmap(pagetable, TRAPFRAME, <span class="number">1</span>, <span class="number">0</span>);</span><br><span class="line">        uvmfree(pagetable, <span class="number">0</span>);</span><br><span class="line">        <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line">   <span class="keyword">return</span> pagetable;</span><br><span class="line"> &#125;</span><br></pre></td></tr></table></figure>
-在这里我们可以看到，在函数proc_pagetable()中我们在注释TODO之下添加了对进程页表的TRAMPOLINE页、TRAPFRAME页之后对USYSCALL页的映射<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Look in the process table for an UNUSED proc.</span></span><br><span class="line"><span class="comment">// If found, initialize state required to run in the kernel,</span></span><br><span class="line"><span class="comment">// and return with p-&gt;lock held.</span></span><br><span class="line"><span class="comment">// If there are no free procs, or a memory allocation fails, return 0.</span></span><br><span class="line"><span class="type">static</span> <span class="keyword">struct</span> proc*</span><br><span class="line"><span class="title function_">allocproc</span><span class="params">(<span class="type">void</span>)</span></span><br><span class="line">&#123;</span><br><span class="line">  <span class="class"><span class="keyword">struct</span> <span class="title">proc</span> *<span class="title">p</span>;</span></span><br><span class="line"></span><br><span class="line">  ...</span><br><span class="line"></span><br><span class="line">  found:</span><br><span class="line">    p-&gt;pid = allocpid();</span><br><span class="line">    p-&gt;state = USED;</span><br><span class="line"></span><br><span class="line">  ...</span><br><span class="line"></span><br><span class="line">  <span class="comment">// <span class="doctag">TODO:</span> allocate a USYSCALL page</span></span><br><span class="line">  <span class="keyword">if</span>((p-&gt;usyscall=(<span class="keyword">struct</span> usyscall *)kalloc()) == <span class="number">0</span>) &#123;</span><br><span class="line">      freeproc(p);</span><br><span class="line">      release(&amp;p-&gt;lock);</span><br><span class="line">      <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">  &#125;</span><br><span class="line">	</span><br><span class="line">  ...</span><br><span class="line"></span><br><span class="line">  <span class="comment">// Set up new context to start executing at forkret,</span></span><br><span class="line">  <span class="comment">// which returns to user space.</span></span><br><span class="line">  <span class="built_in">memset</span>(&amp;p-&gt;context, <span class="number">0</span>, <span class="keyword">sizeof</span>(p-&gt;context));</span><br><span class="line">  p-&gt;context.ra = (uint64)forkret;</span><br><span class="line">  p-&gt;context.sp = p-&gt;kstack + PGSIZE;</span><br><span class="line">  p-&gt;usyscall-&gt;pid = p-&gt;pid;</span><br><span class="line">  <span class="keyword">return</span> p;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-在这里，我们在allocproc()函数中设置对页表的初始化，可以在注释TODO之下看到相应的对内存的操作<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// free a proc structure and the data hanging from it,</span></span><br><span class="line"><span class="comment">// including user pages.</span></span><br><span class="line"><span class="comment">// p-&gt;lock must be held.</span></span><br><span class="line"><span class="type">static</span> <span class="type">void</span></span><br><span class="line"><span class="title function_">freeproc</span><span class="params">(<span class="keyword">struct</span> proc *p)</span></span><br><span class="line">&#123;</span><br><span class="line">  </span><br><span class="line">  ...</span><br><span class="line"></span><br><span class="line">  <span class="keyword">if</span> (p-&gt;usyscall)</span><br><span class="line">	    kfree((<span class="type">void</span> *)p-&gt;usyscall);</span><br><span class="line">  p-&gt;usyscall = <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-在这里，我们在freeproc()函数中设置对页表的内存释放</li>
-</ul>
-<hr>
-<h2 id="Print-a-page-table"><a href="#Print-a-page-table" class="headerlink" title="Print a page table"></a>Print a page table</h2><ul>
-<li>Hardness: <font color=green>easy</font></li>
-<li>Details: 实现内核函数vmprint()打印指定页表中的内容，并在exec.c文件中设置实现对于PID为1的进程对应页表的打印</li>
-<li>Implementation: <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"> <span class="comment">// printout the page table contents</span></span><br><span class="line"> <span class="type">void</span> <span class="title function_">vmprint</span><span class="params">(<span class="type">pagetable_t</span> pagetable)</span> </span><br><span class="line"> &#123;</span><br><span class="line"><span class="built_in">printf</span>(<span class="string">&quot;page table %p\n&quot;</span>, pagetable);</span><br><span class="line"><span class="keyword">for</span>(<span class="type">int</span> i = <span class="number">0</span>; i &lt; <span class="number">512</span>; ++i)</span><br><span class="line">&#123;</span><br><span class="line">	<span class="type">pte_t</span> pte1 = pagetable[i];</span><br><span class="line">	<span class="keyword">if</span>(pte1 &amp; PTE_V)</span><br><span class="line">	&#123;</span><br><span class="line">		uint64 pa1 = PTE2PA(pte1);</span><br><span class="line">		<span class="built_in">printf</span>(<span class="string">&quot;..%d: pte %p pa %p\n&quot;</span>, i, pte1, pa1);</span><br><span class="line">		<span class="keyword">for</span>(<span class="type">int</span> j = <span class="number">0</span>; j &lt; <span class="number">512</span>; ++j)</span><br><span class="line">		&#123;</span><br><span class="line">			<span class="type">pagetable_t</span> pagetable2 = (<span class="type">pagetable_t</span>)pa1;</span><br><span class="line">			<span class="type">pte_t</span> pte2 = pagetable2[j];</span><br><span class="line">			<span class="keyword">if</span>(pte2 &amp; PTE_V)</span><br><span class="line">			&#123;</span><br><span class="line">				uint64 pa2 = PTE2PA(pte2);</span><br><span class="line">				<span class="built_in">printf</span>(<span class="string">&quot;.. ..%d: pte %p pa %p\n&quot;</span>, j, pte2, pa2);</span><br><span class="line">				<span class="keyword">for</span>(<span class="type">int</span> k = <span class="number">0</span>; k &lt; <span class="number">512</span>; ++k)</span><br><span class="line">				&#123;</span><br><span class="line">					<span class="type">pagetable_t</span> pagetable3 = (<span class="type">pagetable_t</span>)pa2;</span><br><span class="line">					<span class="type">pte_t</span> pte3 = pagetable3[k];</span><br><span class="line">					<span class="keyword">if</span>(pte3 &amp; PTE_V)</span><br><span class="line">					&#123;</span><br><span class="line">						uint64 pa3 = PTE2PA(pte3);</span><br><span class="line">						<span class="built_in">printf</span>(<span class="string">&quot;.. .. ..%d: pte %p pa %p\n&quot;</span>, k, pte3, pa3);</span><br><span class="line">					&#125;</span><br><span class="line">				&#125;</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"> &#125;</span><br></pre></td></tr></table></figure>
-模仿同文件中的freewalk()函数，可以容易的写出如上遍历三层页表，输出存在的可用页信息的代码，此后还需要在exec.c中设置使PID为1的进程调用本函数进行输出，如下<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// in file exec.c</span></span><br><span class="line"></span><br><span class="line">...</span><br><span class="line"></span><br><span class="line"><span class="comment">// <span class="doctag">TODO:</span> Print a page table</span></span><br><span class="line"><span class="keyword">if</span> (p-&gt;pid == <span class="number">1</span>) </span><br><span class="line">  vmprint(p-&gt;pagetable);</span><br><span class="line"></span><br><span class="line"><span class="keyword">return</span> argc; <span class="comment">// this ends up in a0, the first argument to main(argc, argv)</span></span><br><span class="line"></span><br><span class="line">...</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-<img src="https://cdn.jsdelivr.net/gh/LaGrange151235/myImage@main/202207011053896.png"><center>完成的效果</center></li>
-</ul>
-<hr>
-<h2 id="Detecting-which-pages-have-been-accessed"><a href="#Detecting-which-pages-have-been-accessed" class="headerlink" title="Detecting which pages have been accessed"></a>Detecting which pages have been accessed</h2><ul>
-<li><p>Hardness: <font color=red>hard</font></p>
-</li>
-<li><p>Details: 为虚拟地址新增一flag位PTE_A，用于标记该页是否曾被访问，然后通过内核函数检查给定<strong>起始虚拟地址</strong>、<strong>指定范围页数</strong>的页表状态，并将结果返回给<strong>指定用户态返回地址</strong>，结果的返回通过按位设置一个bitmask实现</p>
-</li>
-<li><p>Implementation: </p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line"> <span class="comment">// in file kernel/sysproc.c</span></span><br><span class="line"> <span class="comment">// <span class="doctag">TODO:</span> sys_pgaccess here.</span></span><br><span class="line"> <span class="meta">#<span class="keyword">ifdef</span> LAB_PGTBL</span></span><br><span class="line"> <span class="type">int</span></span><br><span class="line"> <span class="title function_">sys_pgaccess</span><span class="params">(<span class="type">void</span>)</span></span><br><span class="line"> &#123;</span><br><span class="line"> <span class="comment">// lab pgtbl: your code here.</span></span><br><span class="line">uint64 startingva;</span><br><span class="line"><span class="type">int</span> pages;</span><br><span class="line">uint64 buffer;</span><br><span class="line"><span class="keyword">if</span>(argaddr(<span class="number">0</span>, &amp;startingva) &lt; <span class="number">0</span>)</span><br><span class="line">	<span class="keyword">return</span> <span class="number">-1</span>;</span><br><span class="line">	<span class="keyword">if</span>(argint(<span class="number">1</span>, &amp;pages) &lt; <span class="number">0</span>)	</span><br><span class="line">	<span class="keyword">return</span> <span class="number">-1</span>;</span><br><span class="line"><span class="keyword">if</span>(argaddr(<span class="number">2</span>, &amp;buffer) &lt; <span class="number">0</span>)</span><br><span class="line">	<span class="keyword">return</span> <span class="number">-1</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">// walk through the table</span></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">proc</span> *<span class="title">p</span> =</span> myproc();</span><br><span class="line"><span class="keyword">if</span> (p == <span class="number">0</span>)</span><br><span class="line">	<span class="keyword">return</span> <span class="number">-1</span>;</span><br><span class="line"><span class="type">int</span> bitmask = <span class="number">0</span>;</span><br><span class="line">uint64 va = startingva;</span><br><span class="line"><span class="keyword">for</span>(<span class="type">int</span> i = <span class="number">0</span>; i &lt; pages; ++i) &#123;</span><br><span class="line">	<span class="type">pte_t</span> * pte;</span><br><span class="line">	<span class="type">pagetable_t</span> pagetable = p-&gt;pagetable;</span><br><span class="line">	<span class="keyword">for</span> (<span class="type">int</span> level = <span class="number">2</span>; level &gt;= <span class="number">0</span>; --level) &#123;</span><br><span class="line">		pte = &amp;pagetable[PX(level, va)];</span><br><span class="line">		<span class="keyword">if</span>(*pte &amp; PTE_V)</span><br><span class="line">			pagetable = (<span class="type">pagetable_t</span>)PTE2PA(*pte);</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">if</span> (pte != <span class="number">0</span> &amp;&amp; ((*pte) &amp; PTE_A)) &#123;</span><br><span class="line">		bitmask |= <span class="number">1</span>&lt;&lt;i;		<span class="comment">// write in bitmask</span></span><br><span class="line">		*pte ^= PTE_A;			<span class="comment">// clear PTE_A</span></span><br><span class="line">	&#125;</span><br><span class="line">	va += PGSIZE;</span><br><span class="line">&#125;</span><br><span class="line">copyout(p-&gt;pagetable, buffer, (<span class="type">char</span>*)&amp;bitmask, <span class="keyword">sizeof</span>(<span class="type">int</span>));</span><br><span class="line"><span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line"> &#125;</span><br><span class="line"> <span class="meta">#<span class="keyword">endif</span></span></span><br></pre></td></tr></table></figure>
-<p>如上，我们从命令行读取了三个参数</p>
-<ul>
-<li>startingva：开始虚拟地址</li>
-<li>pages：查询的页数</li>
-<li>buffer：存储结果的位置</li>
-</ul>
-<p>然后模仿kernel&#x2F;vm.c中的walk()函数，对页表进行遍历，在bitmask中进行置位，最后用copyout()函数从内核态拷贝到用户态</p>
-</li>
-</ul>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://lagrange151235.github.io/2022/07/10/MIT6.S081%20Lab2%20System%20Calls/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="https://cdn.jsdelivr.net/gh/LaGrange151235/myImage@main/Avatar.jpg">
-      <meta itemprop="name" content="Jiayi Zhang">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="LaGrange's Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2022/07/10/MIT6.S081%20Lab2%20System%20Calls/" class="post-title-link" itemprop="url">MIT6.S081 Lab2 System Calls</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-              
-
-              <time title="创建时间：2022-07-10 10:22:33 / 修改时间：10:53:59" itemprop="dateCreated datePublished" datetime="2022-07-10T10:22:33+08:00">2022-07-10</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E8%87%AA%E5%AD%A6/" itemprop="url" rel="index"><span itemprop="name">自学</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h2 id="为XV6系统添加系统调用-Syscall-的基本过程"><a href="#为XV6系统添加系统调用-Syscall-的基本过程" class="headerlink" title="为XV6系统添加系统调用(Syscall)的基本过程"></a>为XV6系统添加系统调用(Syscall)的基本过程</h2><h3 id="Step1-添加新的系统调用编号"><a href="#Step1-添加新的系统调用编号" class="headerlink" title="Step1 添加新的系统调用编号"></a>Step1 添加新的系统调用编号</h3><p>在内核中，每个系统调用都有对应的编号，当添加新的系统调用时应该如下进行设置</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// in file kernel/syscall.h</span></span><br><span class="line"><span class="comment">// System call numbers</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> SYS_fork    1</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> SYS_exit    2</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> SYS_wait    3</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> SYS_pipe    4</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> SYS_read    5</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> SYS_kill    6</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> SYS_exec    7</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> SYS_fstat   8</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> SYS_chdir   9</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> SYS_dup    10</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> SYS_getpid 11</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> SYS_sbrk   12</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> SYS_sleep  13</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> SYS_uptime 14</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> SYS_open   15</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> SYS_write  16</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> SYS_mknod  17</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> SYS_unlink 18</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> SYS_link   19</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> SYS_mkdir  20</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> SYS_close  21</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> SYS_trace  22</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> SYS_sysinfo  23</span></span><br><span class="line">...</span><br><span class="line"><span class="meta">#<span class="keyword">define</span> SYS_newsyscall num</span></span><br></pre></td></tr></table></figure>
-<h3 id="Step2-添加新的系统调用声明"><a href="#Step2-添加新的系统调用声明" class="headerlink" title="Step2 添加新的系统调用声明"></a>Step2 添加新的系统调用声明</h3><p>对内核中相应新系统调用的函数进行<strong>声明</strong>，同时还需要在系统调用映射表中加入相应的映射，如下</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// in file kernel/syscall.c</span></span><br><span class="line"><span class="keyword">extern</span> uint64 <span class="title function_">sys_chdir</span><span class="params">(<span class="type">void</span>)</span>;</span><br><span class="line"><span class="keyword">extern</span> uint64 <span class="title function_">sys_close</span><span class="params">(<span class="type">void</span>)</span>;</span><br><span class="line"><span class="keyword">extern</span> uint64 <span class="title function_">sys_dup</span><span class="params">(<span class="type">void</span>)</span>;</span><br><span class="line"><span class="keyword">extern</span> uint64 <span class="title function_">sys_exec</span><span class="params">(<span class="type">void</span>)</span>;</span><br><span class="line"><span class="keyword">extern</span> uint64 <span class="title function_">sys_exit</span><span class="params">(<span class="type">void</span>)</span>;</span><br><span class="line"><span class="keyword">extern</span> uint64 <span class="title function_">sys_fork</span><span class="params">(<span class="type">void</span>)</span>;</span><br><span class="line"><span class="keyword">extern</span> uint64 <span class="title function_">sys_fstat</span><span class="params">(<span class="type">void</span>)</span>;</span><br><span class="line"><span class="keyword">extern</span> uint64 <span class="title function_">sys_getpid</span><span class="params">(<span class="type">void</span>)</span>;</span><br><span class="line"><span class="keyword">extern</span> uint64 <span class="title function_">sys_kill</span><span class="params">(<span class="type">void</span>)</span>;</span><br><span class="line"><span class="keyword">extern</span> uint64 <span class="title function_">sys_link</span><span class="params">(<span class="type">void</span>)</span>;</span><br><span class="line"><span class="keyword">extern</span> uint64 <span class="title function_">sys_mkdir</span><span class="params">(<span class="type">void</span>)</span>;</span><br><span class="line"><span class="keyword">extern</span> uint64 <span class="title function_">sys_mknod</span><span class="params">(<span class="type">void</span>)</span>;</span><br><span class="line"><span class="keyword">extern</span> uint64 <span class="title function_">sys_open</span><span class="params">(<span class="type">void</span>)</span>;</span><br><span class="line"><span class="keyword">extern</span> uint64 <span class="title function_">sys_pipe</span><span class="params">(<span class="type">void</span>)</span>;</span><br><span class="line"><span class="keyword">extern</span> uint64 <span class="title function_">sys_read</span><span class="params">(<span class="type">void</span>)</span>;</span><br><span class="line"><span class="keyword">extern</span> uint64 <span class="title function_">sys_sbrk</span><span class="params">(<span class="type">void</span>)</span>;</span><br><span class="line"><span class="keyword">extern</span> uint64 <span class="title function_">sys_sleep</span><span class="params">(<span class="type">void</span>)</span>;</span><br><span class="line"><span class="keyword">extern</span> uint64 <span class="title function_">sys_unlink</span><span class="params">(<span class="type">void</span>)</span>;</span><br><span class="line"><span class="keyword">extern</span> uint64 <span class="title function_">sys_wait</span><span class="params">(<span class="type">void</span>)</span>;</span><br><span class="line"><span class="keyword">extern</span> uint64 <span class="title function_">sys_write</span><span class="params">(<span class="type">void</span>)</span>;</span><br><span class="line"><span class="keyword">extern</span> uint64 <span class="title function_">sys_uptime</span><span class="params">(<span class="type">void</span>)</span>;</span><br><span class="line"><span class="keyword">extern</span> uint64 <span class="title function_">sys_trace</span><span class="params">(<span class="type">void</span>)</span>;</span><br><span class="line"><span class="keyword">extern</span> uint64 <span class="title function_">sys_sysinfo</span><span class="params">(<span class="type">void</span>)</span>;</span><br><span class="line">...</span><br><span class="line"><span class="keyword">extern</span> uint64 <span class="title function_">sys_newsyscall</span><span class="params">(<span class="type">void</span>)</span>;</span><br><span class="line"></span><br><span class="line"><span class="type">static</span> <span class="title function_">uint64</span> <span class="params">(*syscalls[])</span><span class="params">(<span class="type">void</span>)</span> = &#123;</span><br><span class="line">[SYS_fork]    sys_fork,</span><br><span class="line">[SYS_exit]    sys_exit,</span><br><span class="line">[SYS_wait]    sys_wait,</span><br><span class="line">[SYS_pipe]    sys_pipe,</span><br><span class="line">[SYS_read]    sys_read,</span><br><span class="line">[SYS_kill]    sys_kill,</span><br><span class="line">[SYS_exec]    sys_exec,</span><br><span class="line">[SYS_fstat]   sys_fstat,</span><br><span class="line">[SYS_chdir]   sys_chdir,</span><br><span class="line">[SYS_dup]     sys_dup,</span><br><span class="line">[SYS_getpid]  sys_getpid,</span><br><span class="line">[SYS_sbrk]    sys_sbrk,</span><br><span class="line">[SYS_sleep]   sys_sleep,</span><br><span class="line">[SYS_uptime]  sys_uptime,</span><br><span class="line">[SYS_open]    sys_open,</span><br><span class="line">[SYS_write]   sys_write,</span><br><span class="line">[SYS_mknod]   sys_mknod,</span><br><span class="line">[SYS_unlink]  sys_unlink,</span><br><span class="line">[SYS_link]    sys_link,</span><br><span class="line">[SYS_mkdir]   sys_mkdir,</span><br><span class="line">[SYS_close]   sys_close,</span><br><span class="line">[SYS_trace]   sys_trace,</span><br><span class="line">[SYS_sysinfo]   sys_sysinfo,</span><br><span class="line">...</span><br><span class="line">[SYS_newsyscall]  sys_newsyscall,</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-<ul>
-<li><strong>extern</strong>用于表示声明的定义（实现）在别处，不一定在声明代码段的前面，一般用于引用<strong>不在同一个文件中</strong>的变量或者函数</li>
-<li><strong>[index] content</strong>的格式将index作为下标实现了一个index到content的映射，上面的代码里的就是系统调用<strong>标号到内核函数的映射</strong></li>
-</ul>
-<h3 id="Step3-添加新的系统调用跳板函数"><a href="#Step3-添加新的系统调用跳板函数" class="headerlink" title="Step3 添加新的系统调用跳板函数"></a>Step3 添加新的系统调用跳板函数</h3><p><strong>跳板函数</strong>通过.pl脚本生成，使用户程序通过入口进入内核态</p>
-<figure class="highlight perl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">// in file user/usys.pl</span><br><span class="line">entry(<span class="string">&quot;fork&quot;</span>);</span><br><span class="line">entry(<span class="string">&quot;exit&quot;</span>);</span><br><span class="line">entry(<span class="string">&quot;wait&quot;</span>);</span><br><span class="line">entry(<span class="string">&quot;pipe&quot;</span>);</span><br><span class="line">entry(<span class="string">&quot;read&quot;</span>);</span><br><span class="line">entry(<span class="string">&quot;write&quot;</span>);</span><br><span class="line">entry(<span class="string">&quot;close&quot;</span>);</span><br><span class="line">entry(<span class="string">&quot;kill&quot;</span>);</span><br><span class="line">entry(<span class="string">&quot;exec&quot;</span>);</span><br><span class="line">entry(<span class="string">&quot;open&quot;</span>);</span><br><span class="line">entry(<span class="string">&quot;mknod&quot;</span>);</span><br><span class="line">entry(<span class="string">&quot;unlink&quot;</span>);</span><br><span class="line">entry(<span class="string">&quot;fstat&quot;</span>);</span><br><span class="line">entry(<span class="string">&quot;link&quot;</span>);</span><br><span class="line">entry(<span class="string">&quot;mkdir&quot;</span>);</span><br><span class="line">entry(<span class="string">&quot;chdir&quot;</span>);</span><br><span class="line">entry(<span class="string">&quot;dup&quot;</span>);</span><br><span class="line">entry(<span class="string">&quot;getpid&quot;</span>);</span><br><span class="line">entry(<span class="string">&quot;sbrk&quot;</span>);</span><br><span class="line">entry(<span class="string">&quot;sleep&quot;</span>);</span><br><span class="line">entry(<span class="string">&quot;uptime&quot;</span>);</span><br><span class="line">entry(<span class="string">&quot;trace&quot;</span>);</span><br><span class="line">entry(<span class="string">&quot;sysinfo&quot;</span>);</span><br><span class="line">...</span><br><span class="line">entry(<span class="string">&quot;newsyscall&quot;</span>);</span><br></pre></td></tr></table></figure>
-<p>在user&#x2F;usys.S里可以看到脚本生成的汇编文件</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"># in file user/usys.S</span><br><span class="line">...</span><br><span class="line">.global newsyscall</span><br><span class="line">newsyscall:                 # 定义用户态跳板函数</span><br><span class="line"> li a7, SYS_newsyscall      # 将系统调用的编号存入寄存器a7</span><br><span class="line"> ecall                      # 进入内核态的函数syscall()进行系统调用的处理</span><br><span class="line"> ret</span><br></pre></td></tr></table></figure>
-<p>在user&#x2F;user.h里还应该添加跳板函数的<strong>声明</strong></p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// in file user/user.h</span></span><br><span class="line"><span class="comment">// system calls</span></span><br><span class="line"><span class="type">int</span> <span class="title function_">fork</span><span class="params">(<span class="type">void</span>)</span>;</span><br><span class="line"><span class="type">int</span> <span class="title function_">exit</span><span class="params">(<span class="type">int</span>)</span> __<span class="title function_">attribute__</span><span class="params">((<span class="keyword">noreturn</span>))</span>;</span><br><span class="line"><span class="type">int</span> <span class="title function_">wait</span><span class="params">(<span class="type">int</span>*)</span>;</span><br><span class="line"><span class="type">int</span> <span class="title function_">pipe</span><span class="params">(<span class="type">int</span>*)</span>;</span><br><span class="line"><span class="type">int</span> <span class="title function_">write</span><span class="params">(<span class="type">int</span>, <span class="type">const</span> <span class="type">void</span>*, <span class="type">int</span>)</span>;</span><br><span class="line"><span class="type">int</span> <span class="title function_">read</span><span class="params">(<span class="type">int</span>, <span class="type">void</span>*, <span class="type">int</span>)</span>;</span><br><span class="line"><span class="type">int</span> <span class="title function_">close</span><span class="params">(<span class="type">int</span>)</span>;</span><br><span class="line"><span class="type">int</span> <span class="title function_">kill</span><span class="params">(<span class="type">int</span>)</span>;</span><br><span class="line"><span class="type">int</span> <span class="title function_">exec</span><span class="params">(<span class="type">char</span>*, <span class="type">char</span>**)</span>;</span><br><span class="line"><span class="type">int</span> <span class="title function_">open</span><span class="params">(<span class="type">const</span> <span class="type">char</span>*, <span class="type">int</span>)</span>;</span><br><span class="line"><span class="type">int</span> <span class="title function_">mknod</span><span class="params">(<span class="type">const</span> <span class="type">char</span>*, <span class="type">short</span>, <span class="type">short</span>)</span>;</span><br><span class="line"><span class="type">int</span> <span class="title function_">unlink</span><span class="params">(<span class="type">const</span> <span class="type">char</span>*)</span>;</span><br><span class="line"><span class="type">int</span> <span class="title function_">fstat</span><span class="params">(<span class="type">int</span> fd, <span class="keyword">struct</span> stat*)</span>;</span><br><span class="line"><span class="type">int</span> <span class="title function_">link</span><span class="params">(<span class="type">const</span> <span class="type">char</span>*, <span class="type">const</span> <span class="type">char</span>*)</span>;</span><br><span class="line"><span class="type">int</span> <span class="title function_">mkdir</span><span class="params">(<span class="type">const</span> <span class="type">char</span>*)</span>;</span><br><span class="line"><span class="type">int</span> <span class="title function_">chdir</span><span class="params">(<span class="type">const</span> <span class="type">char</span>*)</span>;</span><br><span class="line"><span class="type">int</span> <span class="title function_">dup</span><span class="params">(<span class="type">int</span>)</span>;</span><br><span class="line"><span class="type">int</span> <span class="title function_">getpid</span><span class="params">(<span class="type">void</span>)</span>;</span><br><span class="line"><span class="type">char</span>* <span class="title function_">sbrk</span><span class="params">(<span class="type">int</span>)</span>;</span><br><span class="line"><span class="type">int</span> <span class="title function_">sleep</span><span class="params">(<span class="type">int</span>)</span>;</span><br><span class="line"><span class="type">int</span> <span class="title function_">uptime</span><span class="params">(<span class="type">void</span>)</span>;</span><br><span class="line"><span class="type">int</span> <span class="title function_">trace</span><span class="params">(<span class="type">int</span>)</span>;</span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">sysinfo</span>;</span></span><br><span class="line"><span class="type">int</span> <span class="title function_">sysinfo</span><span class="params">(<span class="keyword">struct</span> sysinfo *)</span>;</span><br><span class="line">...</span><br><span class="line">type <span class="title function_">newsyscall</span><span class="params">(type args)</span>;</span><br></pre></td></tr></table></figure>
-<h3 id="Step4-在内核态实现新的系统调用"><a href="#Step4-在内核态实现新的系统调用" class="headerlink" title="Step4 在内核态实现新的系统调用"></a>Step4 在内核态实现新的系统调用</h3><p>这一步需要根据具体系统调用的需求来实现，按下不表</p>
-<hr>
-<h2 id="System-call-tracing"><a href="#System-call-tracing" class="headerlink" title="System call tracing"></a>System call tracing</h2><ul>
-<li>Hardness: <font color=deepskyblue>moderate</font></li>
-<li>Dtails: 用一个mask值来按位设置是否跟踪对应的系统调用，对于跟踪的系统调用，输出格式为<br>$$pid:syscall\quad{syscall_{name}}\rightarrow{return_{value}}$$</li>
-<li>Implementaion: <ol>
-<li>设置系统调用编号  <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// in file kernel/syscall.h</span></span><br><span class="line"><span class="comment">// System call numbers</span></span><br><span class="line">...</span><br><span class="line"><span class="meta">#<span class="keyword">define</span> SYS_trace  22</span></span><br><span class="line">...</span><br></pre></td></tr></table></figure></li>
-<li>声明系统调用函数，生成映射  <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// in file kernel/syscall.c</span></span><br><span class="line">...</span><br><span class="line"><span class="keyword">extern</span> uint64 <span class="title function_">sys_trace</span><span class="params">(<span class="type">void</span>)</span>;</span><br><span class="line"><span class="type">static</span> <span class="title function_">uint64</span> <span class="params">(*syscalls[])</span><span class="params">(<span class="type">void</span>)</span> = &#123;</span><br><span class="line">    ...</span><br><span class="line">    [SYS_trace]   sys_trace,</span><br><span class="line">    ...</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure></li>
-<li>声明跳板函数  <figure class="highlight perl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">// in file user/usys.pl</span><br><span class="line">...</span><br><span class="line">entry(<span class="string">&quot;trace&quot;</span>);</span><br><span class="line">...</span><br></pre></td></tr></table></figure></li>
-<li>声明用户态函数  <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// in file user/user.h</span></span><br><span class="line"><span class="comment">// system calls</span></span><br><span class="line">...</span><br><span class="line"><span class="type">int</span> <span class="title function_">trace</span><span class="params">(<span class="type">int</span>)</span>;</span><br><span class="line">...</span><br></pre></td></tr></table></figure></li>
-<li>实现内核态功能<br>  首先在proc结构体中对每一个进程添加一个记录mask的变量int tracingMask，二进制形式中tracingMask第n位为1则对第n个syscall进行跟踪，否则不跟踪  <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// in file kernel/proc.h</span></span><br><span class="line"><span class="comment">// Per-process state</span></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">proc</span> &#123;</span></span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">spinlock</span> <span class="title">lock</span>;</span></span><br><span class="line"></span><br><span class="line">      <span class="comment">// p-&gt;lock must be held when using these:</span></span><br><span class="line">    <span class="class"><span class="keyword">enum</span> <span class="title">procstate</span> <span class="title">state</span>;</span>        <span class="comment">// Process state</span></span><br><span class="line">    <span class="type">void</span> *chan;                  <span class="comment">// If non-zero, sleeping on chan</span></span><br><span class="line">    <span class="type">int</span> killed;                  <span class="comment">// If non-zero, have been killed</span></span><br><span class="line">    <span class="type">int</span> xstate;                  <span class="comment">// Exit status to be returned to parent&#x27;s wait</span></span><br><span class="line">    <span class="type">int</span> pid;                     <span class="comment">// Process ID</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">// wait_lock must be held when using this:</span></span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">proc</span> *<span class="title">parent</span>;</span>         <span class="comment">// Parent process</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">// these are private to the process, so p-&gt;lock need not be held.</span></span><br><span class="line">    uint64 kstack;               <span class="comment">// Virtual address of kernel stack</span></span><br><span class="line">    uint64 sz;                   <span class="comment">// Size of process memory (bytes)</span></span><br><span class="line">    <span class="type">pagetable_t</span> pagetable;       <span class="comment">// User page table</span></span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">trapframe</span> *<span class="title">trapframe</span>;</span> <span class="comment">// data page for trampoline.S</span></span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">context</span> <span class="title">context</span>;</span>      <span class="comment">// swtch() here to run process</span></span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">file</span> *<span class="title">ofile</span>[<span class="title">NOFILE</span>];</span>  <span class="comment">// Open files</span></span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">inode</span> *<span class="title">cwd</span>;</span>           <span class="comment">// Current directory</span></span><br><span class="line">    <span class="type">char</span> name[<span class="number">16</span>];               <span class="comment">// Process name (debugging)</span></span><br><span class="line">    <span class="type">int</span> tracingMask;             <span class="comment">// tracing syscall record</span></span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-  然后在fork()函数中令生成的子进程复制父进程的tracingMask值，实现对子进程的跟踪  <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// in file kernel/proc.c</span></span><br><span class="line"><span class="comment">// Create a new process, copying the parent.</span></span><br><span class="line"><span class="comment">// Sets up child kernel stack to return as if from fork() system call.</span></span><br><span class="line"><span class="type">int</span></span><br><span class="line"><span class="title function_">fork</span><span class="params">(<span class="type">void</span>)</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="type">int</span> i, pid;</span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">proc</span> *<span class="title">np</span>;</span></span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">proc</span> *<span class="title">p</span> =</span> myproc();</span><br><span class="line">    ...</span><br><span class="line">    np-&gt;tracingMask = p-&gt;tracingMask;</span><br><span class="line">    ...</span><br><span class="line">    release(&amp;np-&gt;lock);</span><br><span class="line">    ...</span><br><span class="line">    <span class="keyword">return</span> pid;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-  然后在内核态实现从命令中获取mask值并赋给此时调用进程的tracingMask的功能  <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// in file kernel/sysproc.c</span></span><br><span class="line">uint64</span><br><span class="line"><span class="title function_">sys_trace</span><span class="params">(<span class="type">void</span>)</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="type">int</span> mask = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">if</span> (argint(<span class="number">0</span>, &amp;mask) &lt; <span class="number">0</span>)</span><br><span class="line">        <span class="keyword">return</span> <span class="number">-1</span>;</span><br><span class="line">    myproc()-&gt;tracingMask = mask;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-  最后在syscall()函数中添加关于tracingMask的判断和输出，这样每当被跟踪的syscall被调用时，就可以输出需要的信息  <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// in file kernel/syscall.c</span></span><br><span class="line"><span class="type">void</span></span><br><span class="line"><span class="title function_">syscall</span><span class="params">(<span class="type">void</span>)</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="type">int</span> num;</span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">proc</span> *<span class="title">p</span> =</span> myproc();</span><br><span class="line"></span><br><span class="line">    num = p-&gt;trapframe-&gt;a7;</span><br><span class="line">    <span class="keyword">if</span>(num &gt; <span class="number">0</span> &amp;&amp; num &lt; NELEM(syscalls) &amp;&amp; syscalls[num]) &#123;</span><br><span class="line">        p-&gt;trapframe-&gt;a0 = syscalls[num]();</span><br><span class="line">        <span class="keyword">if</span> ((p-&gt;tracingMask&gt;&gt;num) &amp; <span class="number">1</span>) &#123;</span><br><span class="line">            <span class="built_in">printf</span>(<span class="string">&quot;%d: syscall %s -&gt; %d\n&quot;</span>, p-&gt;pid, syscall_names[num], p-&gt;trapframe-&gt;a0);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">&quot;%d %s: unknown sys call %d\n&quot;</span>, p-&gt;pid, p-&gt;name, num);</span><br><span class="line">        p-&gt;trapframe-&gt;a0 = <span class="number">-1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
-</ol>
-</li>
-</ul>
-<hr>
-<h2 id="Sysinfo"><a href="#Sysinfo" class="headerlink" title="Sysinfo"></a>Sysinfo</h2><ul>
-<li>Hardness: <font color=deepskyblue>moderate</font></li>
-<li>Dtails: 对整个系统资源进行统计，填充结构体struct sysinfo，由测试程序sysinfotest来测试系统调用sysinfo的功能，struct sysinfo包含两个变量freemem和nproc，分别记录系统中空闲内存的字节数和正在运行的进程的数量</li>
-<li>Implementation: <ol>
-<li>设置系统调用编号  <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// in file kernel/syscall.h</span></span><br><span class="line"><span class="comment">// System call numbers</span></span><br><span class="line">...</span><br><span class="line"><span class="meta">#<span class="keyword">define</span> SYS_sysinfo  23</span></span><br><span class="line">...</span><br></pre></td></tr></table></figure></li>
-<li>声明系统调用函数，生成映射  <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// in file kernel/syscall.c</span></span><br><span class="line">...</span><br><span class="line"><span class="keyword">extern</span> uint64 <span class="title function_">sys_sysinfo</span><span class="params">(<span class="type">void</span>)</span>;</span><br><span class="line"><span class="type">static</span> <span class="title function_">uint64</span> <span class="params">(*syscalls[])</span><span class="params">(<span class="type">void</span>)</span> = &#123;</span><br><span class="line">    ...</span><br><span class="line">    [SYS_sysinfo]   sys_sysinfo,</span><br><span class="line">    ...</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure></li>
-<li>声明跳板函数  <figure class="highlight perl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">// in file user/usys.pl</span><br><span class="line">...</span><br><span class="line">entry(<span class="string">&quot;sysinfo&quot;</span>);</span><br><span class="line">...</span><br></pre></td></tr></table></figure></li>
-<li>声明用户态函数  <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// in file user/user.h</span></span><br><span class="line"><span class="comment">// system calls</span></span><br><span class="line">...</span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">sysinfo</span>;</span></span><br><span class="line"><span class="type">int</span> <span class="title function_">sysinfo</span><span class="params">(<span class="keyword">struct</span> sysinfo *)</span>;</span><br><span class="line">...</span><br></pre></td></tr></table></figure></li>
-<li>实现内核态功能<br>  首先实现对空闲内存的统计，空闲内存在内核中用一个链表结构来实现，通过阅读kalloc.c中原有的代码找到空闲页链表的表头freelist，遍历freelist就可以统计完所有的空闲内存，每一页都是4096byte  <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// in file kernel/defs.h</span></span><br><span class="line">uint64 <span class="title function_">collectfreemem</span><span class="params">()</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">// in file kernel/kalloc.c</span></span><br><span class="line">uint64</span><br><span class="line"><span class="title function_">collectfreemem</span><span class="params">()</span></span><br><span class="line">&#123;</span><br><span class="line">  uint64 freemem = <span class="number">0</span>;</span><br><span class="line">  <span class="class"><span class="keyword">struct</span> <span class="title">run</span> *<span class="title">r</span>;</span></span><br><span class="line">  acquire(&amp;kmem.lock);</span><br><span class="line">  r = kmem.freelist;</span><br><span class="line">  <span class="keyword">while</span>(r) &#123;</span><br><span class="line">    freemem += <span class="number">4096</span>;</span><br><span class="line">    r = r-&gt;next;</span><br><span class="line">  &#125;</span><br><span class="line">  release(&amp;kmem.lock);</span><br><span class="line">  <span class="keyword">return</span> freemem;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-  然后实现对正在运行的进程的数目，这里是通过遍历进程记录数组proc[NPROC]，在每个元素中通过state来确定是否正在运行，遍历一次就可以统计完毕  <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// in file kernel/proc.h</span></span><br><span class="line">uint64 <span class="title function_">collectproc</span><span class="params">()</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">// in file kernel/proc.c</span></span><br><span class="line">uint64</span><br><span class="line"><span class="title function_">collectproc</span><span class="params">()</span> &#123;</span><br><span class="line">  uint64 nproc = <span class="number">0</span>;</span><br><span class="line">  <span class="class"><span class="keyword">struct</span> <span class="title">proc</span> *<span class="title">p</span> =</span> proc;</span><br><span class="line">  <span class="keyword">for</span>(; p &lt; &amp;proc[NPROC]; ++p) &#123;</span><br><span class="line">    <span class="keyword">if</span>(p-&gt;state != UNUSED) &#123;</span><br><span class="line">      ++nproc;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> nproc;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-  最后在syscall()函数中添加从内核态将信息复制到用户态的函数实现，根据提示，从内核态复制信息到用户态需要copyout()函数  <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// in file kernel/sysproc.c</span></span><br><span class="line">uint64</span><br><span class="line"><span class="title function_">sys_sysinfo</span><span class="params">(<span class="type">void</span>)</span></span><br><span class="line">&#123;</span><br><span class="line">  uint64 infop;</span><br><span class="line">  <span class="keyword">if</span> (argaddr(<span class="number">0</span>, &amp;infop) &lt; <span class="number">0</span>)</span><br><span class="line">    <span class="keyword">return</span> <span class="number">-1</span>;</span><br><span class="line">  <span class="class"><span class="keyword">struct</span> <span class="title">sysinfo</span> <span class="title">infokp</span>;</span></span><br><span class="line">  infokp.freemem = collectfreemem();</span><br><span class="line">  infokp.nproc = collectproc();</span><br><span class="line">  <span class="keyword">if</span> (copyout(myproc()-&gt;pagetable, infop, (<span class="type">char</span>*)&amp;infokp, <span class="keyword">sizeof</span>(infokp)) &lt; <span class="number">0</span>)</span><br><span class="line">  <span class="keyword">return</span> <span class="number">-1</span>;</span><br><span class="line">  <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
-</ol>
-</li>
-</ul>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -1577,14 +1571,14 @@ What is the output? Here’s an ASCII table that maps bytes to characters.<br>$ 
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">11</span>
+          <span class="site-state-item-count">13</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">2</span>
+        <span class="site-state-item-count">3</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
       <div class="site-state-item site-state-tags">
