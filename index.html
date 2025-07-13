@@ -1,12 +1,91 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Auto Redirect</title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Redirecting...</title>
     <meta http-equiv="refresh" content="1; url=https://lagrange151235.notion.site/Jiayi-s-Blog-1b6891b068c080648cbbc5ab451b07b2?pvs=74">
+
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            height: 100vh;
+            background: #f9f9f9;
+            font-family: "Noto Serif", Georgia, "Times New Roman", serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            color: #333;
+        }
+
+        .message {
+            width: 400px;
+            text-align: center;
+            animation: fadeIn 0.8s ease-in;
+        }
+
+        .message a {
+            color: #007acc;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .message a:hover {
+            color: #005fa3;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 6px;
+            background: #e0e0e0;
+            border-radius: 3px;
+            overflow: hidden;
+            margin-top: 20px;
+            animation: shrinkBar 1s linear forwards;
+        }
+
+        .progress {
+            height: 100%;
+            background: #1e66c5;
+            width: 100%;
+        }
+
+        @keyframes shrinkBar {
+            from {
+                width: 100%;
+            }
+
+            to {
+                width: 0px;
+            }
+        }
+    </style>
 </head>
+
 <body>
-    <p>You will be redirected to <a href="https://lagrange151235.notion.site/Jiayi-s-Blog-1b6891b068c080648cbbc5ab451b07b2?pvs=74">https://lagrange151235.notion.site/Jiayi-s-Blog-1b6891b068c080648cbbc5ab451b07b2?pvs=74</a> in 1 seconds.</p>
+    <div class="message">
+        <p style="font-size: 24pt;">您将在1秒后被重定向到<a href="https://lagrange151235.notion.site/Jiayi-s-Blog-1b6891b068c080648cbbc5ab451b07b2?pvs=74">Jiayi's Blog</a></p>
+        <p>You will be redirected to <a href="https://lagrange151235.notion.site/Jiayi-s-Blog-1b6891b068c080648cbbc5ab451b07b2?pvs=74">Jiayi's Blog</a> in 1 second.</p>
+
+        <div class="progress-bar">
+            <div class="progress"></div>
+        </div>
+    </div>
 </body>
+
 </html>
