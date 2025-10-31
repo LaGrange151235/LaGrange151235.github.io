@@ -106,6 +106,24 @@
         });
       };
       document.body.appendChild(script);
+    
+      function resizeCanvas() {
+        var container = document.querySelector("#unity-container");
+        var width = window.innerWidth;
+        var height = window.innerHeight;
+        var aspectRatio = 800 / 600;
+
+        var newWidth = width;
+        var newHeight = height;
+        if (newHeight > height) {
+          newHeight = height;
+          newWidth = newHeight * aspectRatio;
+        }
+        container.style.width = newWidth + "px";
+        container.style.height = newHeight + "px";
+      }
+      window.onload = resizeCanvas;
+      window.addEventListener("resize", resizeCanvas);
     </script>
   </body>
 </html>
