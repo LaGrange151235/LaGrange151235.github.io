@@ -2,7 +2,7 @@ const cacheName = "Team Flip-Flip-1.0";
 const contentToCache = [
     "Build/62f83d966fa4fe8130303d5bd811a39b.loader.js",
     "Build/f5e2320411c9bef425221c973b8758e1.framework.js",
-    "Build/604e766ed323c35ac783bec054fd871d.data",
+    "Build/29d9dc3a4bf1463e508de039299fcf69.data",
     "Build/480d0f51b14f6b1b598287fdec84d342.wasm",
     "TemplateData/style.css"
 
